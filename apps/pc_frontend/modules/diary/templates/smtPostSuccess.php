@@ -107,9 +107,17 @@ $(function(){
         {
           alert('ファイルサイズが大きすぎます。');
         }
+        else if (-1 !== em.indexOf('title parameter is not specified.'))
+        {
+          alert('タイトルが空欄です。');
+        }
+        else if (-1 !== em.indexOf('body parameter is not specified.'))
+        {
+          alert('本文が空欄です。');
+        }
         else
         {
-          alert('ファイルアップロードに失敗しました。');
+          alert('日記の作成に失敗しました。');
         }
       },
       complete: function() {
