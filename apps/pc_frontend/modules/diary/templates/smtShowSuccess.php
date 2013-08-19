@@ -19,13 +19,13 @@ op_smt_use_stylesheet('/opDiaryPlugin/css/smt-diary.css', 'last');
     <h3 class="span12">${title}</h3>
     {{/if}}
   </div>
-  <div class="row body">
-    <div class="span12">{{html body}}</div>
-  </div>
   <div class="row images">
     {{each images}}
       <div class="span4"><a href="${$value.filename}" target="_blank">{{html $value.imagetag}}</a></div>
     {{/each}}
+  </div>
+  <div class="row body">
+    <div class="span12">{{html body}}</div>
   </div>
   {{tmpl "#diarySiblings"}}
   <div class="row" id="comments">
