@@ -39,8 +39,8 @@ class diaryActions extends opJsonApiActions
       if(isset($request['id']) && '' !== $request['id'])
       {
         $diary = Doctrine::getTable('Diary')->findOneById($request['id']);
-        $this->forward400If(false === $diary, 'the specified diary does not exit.');
-        $this->forward400If(false === $diary->isAuthor($this->member->getId()), 'this diary is not yours.');
+        $this->forward400Unless($diary, 'the specified diary does not exit.');
+        $this->forward400Unless($diary->isAuthor($this->member->getId()), 'this diary is not yours.');
       }
       else
       {
@@ -51,11 +51,12 @@ class diaryActions extends opJsonApiActions
       $diary->setTitle($request['title']);
       $diary->setBody($request['body']);
       $diary->setPublicFlag($request['public_flag']);
-      $diary->save();
+      $diary->save($conn);
 
       $this->diary = $diary;
 
-      for ($i = 1; $i <= 3; $i++)
+      $maxNum = sfConfig::get('app_diary_max_image_file_num',3);
+      for ($i = 1; $i <= $maxNum; $i++)
       {
         $diaryImage = Doctrine::getTable('DiaryImage')->retrieveByDiaryIdAndNumber($diary->getId(), $i);
 
@@ -79,19 +80,19 @@ class diaryActions extends opJsonApiActions
           {
             if (!is_null($diaryImage))
             {
-              $diaryImage->delete();
+              $diaryImage->delete($conn);
             }
 
             $bin = new FileBin();
             $bin->setBin(stream_get_contents($stream));
             $f->setFileBin($bin);
-            $f->save();
+            $f->save($conn);
 
             $di = new DiaryImage();
             $di->setDiaryId($diary->getId());
             $di->setFileId($f->getId());
             $di->setNumber($i);
-            $di->save();
+            $di->save($conn);
 
             $diary->updateHasImages();
           }
@@ -104,7 +105,7 @@ class diaryActions extends opJsonApiActions
         $deleteCheck = $request['diary_photo_'.$i.'_photo_delete'];
         if ('on' === $deleteCheck && !is_null($diaryImage))
         {
-          $diaryImage->delete();
+          $diaryImage->delete($conn);
         }
       }
 
