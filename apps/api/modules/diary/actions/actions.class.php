@@ -27,8 +27,17 @@ class diaryActions extends opJsonApiActions
 
   public function executePost(sfWebRequest $request)
   {
-    $this->forward400If('' === (string)trim(mb_convert_kana($request['title'],'s')), 'title parameter is not specified.');
-    $this->forward400If('' === (string)trim(mb_convert_kana($request['body']),'s'), 'body parameter is not specified.');
+    $validator = new opValidatorString(array('trim' => true));
+    try
+    {
+      $cleanTitle = $validator->clean($request['title']);
+      $cleanBody =  $validator->clean($request['body']);
+    }
+    catch (sfValidatorError $e)
+    {
+      if (!$cleanTitle) $this->forward400('title parameter is not specified.');
+      if (!$cleanBody) $this->forward400('body parameter is not specified.');
+    }
     $this->forward400If(!isset($request['public_flag']) || '' === (string)$request['public_flag'], 'public flag is not specified');
 
     $conn = opDoctrineQuery::getMasterConnection();
@@ -55,7 +64,7 @@ class diaryActions extends opJsonApiActions
 
       $this->diary = $diary;
 
-      $maxNum = sfConfig::get('app_diary_max_image_file_num',3);
+      $maxNum = sfConfig::get('app_diary_max_image_file_num', 3);
       for ($i = 1; $i <= $maxNum; $i++)
       {
         $diaryImage = Doctrine::getTable('DiaryImage')->retrieveByDiaryIdAndNumber($diary->getId(), $i);
