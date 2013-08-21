@@ -27,8 +27,8 @@ class diaryActions extends opJsonApiActions
 
   public function executePost(sfWebRequest $request)
   {
-    $this->forward400If('' === (string)trim($request['title']), 'title parameter is not specified.');
-    $this->forward400If('' === (string)trim($request['body']), 'body parameter is not specified.');
+    $this->forward400If('' === (string)trim(mb_convert_kana($request['title'],'s')), 'title parameter is not specified.');
+    $this->forward400If('' === (string)trim(mb_convert_kana($request['body']),'s'), 'body parameter is not specified.');
     $this->forward400If(!isset($request['public_flag']) || '' === (string)$request['public_flag'], 'public flag is not specified');
 
     $conn = opDoctrineQuery::getMasterConnection();
