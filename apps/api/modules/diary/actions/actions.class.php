@@ -35,8 +35,8 @@ class diaryActions extends opJsonApiActions
     }
     catch (sfValidatorError $e)
     {
-      if (!$cleanTitle) $this->forward400('title parameter is not specified.');
-      if (!$cleanBody) $this->forward400('body parameter is not specified.');
+      if (!isset($cleanTitle)) $this->forward400('title parameter is not specified.');
+      if (!isset($cleanBody)) $this->forward400('body parameter is not specified.');
     }
     $this->forward400If(!isset($request['public_flag']) || '' === (string)$request['public_flag'], 'public flag is not specified');
 
