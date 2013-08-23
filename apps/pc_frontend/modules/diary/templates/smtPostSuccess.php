@@ -99,19 +99,19 @@ $(function(){
       },
       error: function(e) {
         var em = e.responseText;
-        if (em == 'Invalid mime type')
+        if (em.match('Invalid mime type'))
         {
           alert('ファイル形式が間違っています。');
         }
-        else if (em == 'File is too large')
+        else if (em.match('File is too large'))
         {
           alert('ファイルサイズが大きすぎます。');
         }
-        else if (em == 'title parameter is not specified.')
+        else if (em.match('title parameter is not specified.'))
         {
           alert('タイトルが空欄です。');
         }
-        else if (em == 'body parameter is not specified.')
+        else if (em.match('body parameter is not specified.'))
         {
           alert('本文が空欄です。');
         }
