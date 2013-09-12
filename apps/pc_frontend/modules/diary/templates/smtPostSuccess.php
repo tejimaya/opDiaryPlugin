@@ -99,17 +99,25 @@ $(function(){
       },
       error: function(e) {
         var em = e.responseText;
-        if (-1 !== em.indexOf('Invalid mime type'))
+        if (em.match('Invalid mime type'))
         {
           alert('ファイル形式が間違っています。');
         }
-        else if (-1 !== em.indexOf('File is too large'))
+        else if (em.match('File is too large'))
         {
           alert('ファイルサイズが大きすぎます。');
         }
+        else if (em.match('title parameter is not specified.'))
+        {
+          alert('タイトルが空欄です。');
+        }
+        else if (em.match('body parameter is not specified.'))
+        {
+          alert('本文が空欄です。');
+        }
         else
         {
-          alert('ファイルアップロードに失敗しました。');
+          alert('日記の作成に失敗しました。');
         }
       },
       complete: function() {
