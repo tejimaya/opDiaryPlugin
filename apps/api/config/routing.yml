@@ -6,21 +6,25 @@ diary_index:
 
 diary_post:
   url: /diary/post.json
+  class: sfRequestRoute
   param: { module: diary, action: post, sf_format: json }
   requirements: { sf_method: [post] }
 
 diary_delete:
   url: /diary/delete.json
+  class: sfRequestRoute
   param: { module: diary, action: delete, sf_format: json }
   requirements: { sf_method: [post] }
 
 diary_comment_post:
   url: /diary_comment/post.json
+  class: sfRequestRoute
   param: { module: diaryComment, action: post, sf_format: json }
   requirements: { sf_method: [post] }
 
 diary_comment_delete:
   url: /diary_comment/delete.json
+  class: sfRequestRoute
   param: { module: diaryComment, action: delete, sf_format: json }
   requirements: { sf_method: [post] }
 
@@ -28,3 +32,11 @@ diary_comment_search:
   url: /diary_comment/search.json
   param: { module: diaryComment, action: search, sf_format: json }
   requirements: { sf_method: [get] }
+
+diary_no_default:
+  url: /diary/*
+  param: { modulr: default, action: error }
+
+diary_comment_no_default:
+  url: /diary_comment/*
+  param: { modulr: default, action: error }
