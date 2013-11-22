@@ -94,6 +94,11 @@ $(function(){
 <div class="row">
   <div class="gadget_header span12"><?php echo $gadgetTitle; ?></div>
 </div>
+<?php if ('list_mine' == $target): ?>
+<div class="row">
+  <?php echo link_to(__('Post a diary'), '@diary_new', array('class' => 'btn span11')) ?>
+</div>
+<?php endif; ?>
 <div id="list"></div>
 <div class="row hide" id="noEntry">
   <div class="center span12">まだ日記はありません</div>
