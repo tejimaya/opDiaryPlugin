@@ -19,94 +19,45 @@ class diaryActions extends opDiaryPluginAPIActions
 {
   public function executePost(sfWebRequest $request)
   {
-    $this->isValidTitleAndBody($request->getParameter('title'), $request->getParameter('body'));
-    $this->forward400If(!isset($request['public_flag']) || '' === (string)$request['public_flag'], 'public flag is not specified');
-
     $conn = opDoctrineQuery::getMasterConnection();
     $conn->beginTransaction();
 
     try
     {
-      if(isset($request['id']) && '' !== $request['id'])
-      {
-        $diary = Doctrine::getTable('Diary')->findOneById($request['id']);
-        $this->forward400Unless($diary, 'the specified diary does not exit.');
-        $this->forward400Unless($diary->isAuthor($this->member->getId()), 'this diary is not yours.');
-      }
-      else
-      {
-        $diary = new Diary();
-        $diary->setMemberId($this->member->getId());
-      }
-
-      $diary->setTitle($request['title']);
-      $diary->setBody($request['body']);
-      $diary->setPublicFlag($request['public_flag']);
+      $params = $this->getRequestedFormParameter($request);
+      $diary = $this->getDiaryObject($this->member->id, $request->getParameter('id'));
+      $diary->setTitle($params['title']);
+      $diary->setBody($params['body']);
+      $diary->setPublicFlag($params['public_flag']);
       $diary->save($conn);
 
-      $this->diary = $diary;
-
-      $maxNum = sfConfig::get('app_diary_max_image_file_num', 3);
-      for ($i = 1; $i <= $maxNum; $i++)
+      if ($params['image'])
       {
-        $diaryImage = Doctrine::getTable('DiaryImage')->retrieveByDiaryIdAndNumber($diary->getId(), $i);
-
-        $filename = basename($_FILES['diary_photo_'.$i]['name']);
-        if (!is_null($filename) && '' !== $filename)
+        foreach ($params['image'] as $key => $image)
         {
-          try
-          {
-            $validator = new opValidatorImageFile(array('required' => false));
-            $validFile = $validator->clean($_FILES['diary_photo_'.$i]);
-          }
-          catch (Exception $e)
-          {
-            $this->forward400($e->getMessage());
-          }
+          $diaryImage = new DiaryImage();
+          $diaryImage->setDiaryId($diary->getId());
+          $diaryImage->setFile($image);
+          $diaryImage->setNumber(substr($key, -1));
+          $diaryImage->save($conn);
 
-          $f = new File();
-          $f->setFromValidatedFile($validFile);
-          $f->setName(hash('md5', uniqid((string)$i).$filename));
-          if ($stream = fopen($_FILES['diary_photo_'.$i]['tmp_name'], 'r'))
-          {
-            if (!is_null($diaryImage))
-            {
-              $diaryImage->delete($conn);
-            }
-
-            $bin = new FileBin();
-            $bin->setBin(stream_get_contents($stream));
-            $f->setFileBin($bin);
-            $f->save($conn);
-
-            $di = new DiaryImage();
-            $di->setDiaryId($diary->getId());
-            $di->setFileId($f->getId());
-            $di->setNumber($i);
-            $di->save($conn);
-
-            $diary->updateHasImages();
-          }
-          else
-          {
-            $this->forward400(__('Failed to write file to disk.'));
-          }
-        }
-
-        $deleteCheck = $request['diary_photo_'.$i.'_photo_delete'];
-        if ('on' === $deleteCheck && !is_null($diaryImage))
-        {
-          $diaryImage->delete($conn);
+          $diary->updateHasImages();
         }
       }
 
       $conn->commit();
+    }
+    catch (opDiaryPluginAPIException $e)
+    {
+      $this->forward400($e->getMessage());
     }
     catch (Exception $e)
     {
       $conn->rollback();
       throw $e;
     }
+
+    $this->diary = $diary;
   }
 
   public function executeDelete(sfWebRequest $request)
