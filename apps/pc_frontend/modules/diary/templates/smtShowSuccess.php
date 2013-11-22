@@ -2,7 +2,9 @@
 use_helper('opAsset');
 op_smt_use_javascript('/opDiaryPlugin/js/bootstrap-transition.js', 'last');
 op_smt_use_stylesheet('/opDiaryPlugin/css/smt-diary.css', 'last');
+op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_comment_functions.js', 'last');
 ?>
+
 <script id="diaryEntry" type="text/x-jquery-tmpl">
   <div class="row">
     <div class="gadget_header span12">${$item.formatTitle()}</div>
@@ -34,7 +36,12 @@ op_smt_use_stylesheet('/opDiaryPlugin/css/smt-diary.css', 'last');
     &nbsp;
     </div>
     <textarea id="commentBody"></textarea>
-    <input type="submit" class="btn" id="postComment" value="投稿">
+    <div class="commentForm">
+    <input type="submit" name="submit" class="btn btn-primary btn-mini comment-button" id="postComment" value="投稿" />
+    </div>
+    <div class="comment-form-loader hide">
+      <?php echo op_image_tag('ajax-loader.gif', array()) ?>
+    </div>
   </div>
   {{tmpl "#diarySiblings"}}
 </script>
@@ -86,152 +93,40 @@ op_smt_use_stylesheet('/opDiaryPlugin/css/smt-diary.css', 'last');
 
 <script type="text/javascript">
 var diary_id = <?php echo $id ?>;
-
-function getEntry(params)
-{
-  params.diary_id = diary_id;
-  $('#loading').show();
-  $.getJSON( openpne.apiBase + 'diary/search.json',
-    params,
-    function(json)
-    {
-      var entry = $('#diaryEntry').tmpl(json.data,
-      {
-        formatTitle: function()
-        {
-          var _date = new Date(this.data.created_at.replace(/-/g,'/'));
-          return _date.getMonth()+1 + '月' + _date.getDate() + '日の日記';
-        }
-      });
-      $('#show').html(entry);
-
-      var params = {
-        apiKey: openpne.apiKey,
-        diary_id: diary_id
-      }
-      $.getJSON( openpne.apiBase + 'diary_comment/search.json',
-        params,
-        function(res)
-        {
-          var comments = $('#diaryComment').tmpl(res.data.comments);
-          $('#comments').html(comments);
-          $('#loading').hide();
-        }
-      );
-
-    }
-  );
-
-}
+var comment_count = 0;
+var comment_page = 1;
 
 $(function(){
-  var params = {
-    apiKey: openpne.apiKey,
-    target: 'diary',
-    diary_id: diary_id,
-  }
+  var params = getParams('diary_search');
   getEntry(params);
 
   $('#deleteEntryModal .modal-button').click(function(e){
     if(e.target.id == 'execute')
     {
-      var params = {
-        apiKey: openpne.apiKey,
-        id: diary_id,
-      };
-
-      $.post(openpne.apiBase + "diary/delete.json",
-        params,
-        'json'
-      )
-      .success(
-        function(res)
-        {
-          window.location = '/diary/listMember/' + res.data.member.id;
-        }
-      )
-      .error(
-        function(res)
-        {
-          console.log(res);
-        }
-      )
-    }
-    else
-    {
-      $('#deleteEntryModal').modal('hide');
+      deleteDiary( getParams('diary_delete') );
     };
+
+    $('#deleteEntryModal').modal('hide');
   })
 
   $(document).on('click', '#postComment',function(){
-    $('input[name=submit]').toggle();
-    var params = {
-      apiKey: openpne.apiKey,
-      diary_id: diary_id,
-      body: $('textarea#commentBody').val()
-    };
-
-    $.post(openpne.apiBase + "diary_comment/post.json",
-      params,
-      'json'
-    )
-    .success(
-      function(res)
-      {
-        $('#comments').append($('#diaryComment').tmpl(res.data));
-        $('textarea#commentBody').val('');
-      }
-    )
-    .error(
-      function(res)
-      {
-        console.log(res);
-      }
-    )
-    .complete(
-      function(res)
-      {
-        $('input[name=submit]').toggle();
-      }
-    );
+    toggleSubmitState(['input[type=submit]', '.commet-form-loader']);
+    postDiaryComment( getParams('diary_comment_post') );
   })
 
   $('#deleteCommentModal .modal-button').click(function(e){
     if(e.target.id == 'execute')
     {
-      var params = {
-        apiKey: openpne.apiKey,
-        id: $("#deleteCommentModal").attr('data-comment-id'),
-      };
-
-      $.post(openpne.apiBase + "diary_comment/delete.json",
-        params,
-        'json'
-      )
-      .success(
-        function(res)
-        {
-          $('#comment'+res.data.id).remove();
-        }
-      )
-      .error(
-        function(res)
-        {
-          console.log(res);
-        }
-      )
-      .complete(
-        function(res)
-        {
-          $('#deleteCommentModal').attr('data-comment-id', '').modal('hide');
-        }
-      );
-    }
-    else
-    {
-      $('#deleteCommentModal').attr('data-comment-id', '').modal('hide');
+      deleteDiaryComment( getParams('diary_comment_delete') );
     };
+
+    $('#deleteCommentModal').attr('data-comment-id', '').modal('hide');
   });
+
+  $('#loadmore').click(function()
+  {
+    getComments(getParams('diary_comment_search'));
+  })
 })
 
 </script>
@@ -242,5 +137,8 @@ $(function(){
   <div id="loading" class="center">
     <?php echo op_image_tag('ajax-loader.gif');?>
   </div>
+</div>
+<div class="row">
+  <button class="span12 btn small hide" id="loadmore"><?php echo __('More'); ?></button>
 </div>
 <?php include_partial('smtModal') ?>
