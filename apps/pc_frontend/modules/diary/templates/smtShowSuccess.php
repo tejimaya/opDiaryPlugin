@@ -29,50 +29,30 @@ op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_comment_functions.js', 'last'
     <div class="span12">{{html body}}</div>
   </div>
   {{tmpl "#diarySiblings"}}
-  <div class="row" id="comments">
+  <div id="comment">
+    <div class="row">
+      <div class="gadget_header"><?php echo __('Comment') ?></div>
+    </div>
+    <!-- //commentForm -->
+    <div class="row" id="comment-form">
+      <div class="span1">
+      &nbsp;
+      </div>
+      <div class="comment-form">
+        <textarea id="commentBody"></textarea>
+        <input type="submit" name="submit" class="btn btn-primary btn-mini comment-button" id="postComment" value="<?php echo __('Post a diary comment') ?>" />
+      </div>
+      <div class="comment-form-loader hide">
+        <?php echo op_image_tag('ajax-loader.gif', array()) ?>
+      </div>
+    </div>
+    <!-- //commentForm end -->
+    <div class="row comments" id="comments">
+    </div>
   </div>
-  <div class="row" id="commentForm">
-    <div class="span1">
-    &nbsp;
-    </div>
-    <textarea id="commentBody"></textarea>
-    <div class="commentForm">
-    <input type="submit" name="submit" class="btn btn-primary btn-mini comment-button" id="postComment" value="投稿" />
-    </div>
-    <div class="comment-form-loader hide">
-      <?php echo op_image_tag('ajax-loader.gif', array()) ?>
-    </div>
-  </div>
-  {{tmpl "#diarySiblings"}}
 </script>
 
-<script id="diaryComment" type="text/x-jquery-tmpl">
-  <div class="row" id="comment${id}">
-    <div class="span1">
-      &nbsp;
-    </div>
-    <div class="span3">
-      <a href="${member.profile_url}"><img src="${member.profile_image}" class="rad10" width="57" height="57"></a>
-    </div>
-    <div class="span8">
-      <div>
-        <a href="${member.profile_url}">{{if member.screen_name}} ${member.screen_name} {{else}} ${member.name} {{/if}}</a>
-        {{html body}}
-      </div>
-      <div class="row">
-        <span>${ago}</span>
-        {{if deletable}}
-        <a href="javascript:void(0);" class="deleteComment" data-comment-id="${id}"><i class="icon-remove"></i></a>
-        {{/if}}
-      </div>
-      <div class="images center">
-        {{each images}}
-          <div class="span3"><a href="${$value.filename}" target="_blank">{{html $value.imagetag}}</a></div>
-        {{/each}}
-      </div>
-    </div>
-  </div>
-</script>
+<?php include_partial('diaryComment/smtCommentBox', array('target' => 'diary')) ?>
 
 <script id="diarySiblings" type="text/x-jquery-tmpl">
   <div class="row siblings">

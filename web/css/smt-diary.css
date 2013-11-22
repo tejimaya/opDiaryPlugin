@@ -42,23 +42,97 @@
 }
 
 #show .siblings {
-  margin-bottom: 5px;
-}
-
-#show #comments {
-  background-color: #ddd;
-}
-
-#show #commentForm {
-  background-color: #ddd;
-  padding-top: 3px;
-  margin-bottom: 5px;
-}
-
-#show #comments .row {
-  margin-top: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #successMessage {
   margin-bottom: 20px;
+}
+
+#comment-form{
+  width: 295px;
+  margin-left: 25px;
+  background-color: whiteSmoke;
+}
+
+.comments {
+  width: 295px;
+  margin-left: 25px;
+  margin-top: 10px;
+  background-color: whiteSmoke;
+}
+
+.comment-wrapper {
+  width: 285px;
+  display: block;
+  padding: 5px;
+  border-top: 1px solid #DDD;
+}
+
+.comment-member-image {
+  float: left;
+  width: 23px;
+}
+
+.comment-content {
+  float: right;
+  width: 257px;
+}
+
+.comment-name-and-body {
+  display: inline;
+  float: left;
+  font-size: 12px;
+}
+
+.comment-control {
+  display: block;
+  width: 262px;
+  margin-left: 28px;
+  font-size: 11px;
+}
+
+.comment-form {
+  padding: 5px;
+}
+
+.comment-form textarea {
+  margin-top: 5px;
+}
+
+.comment-form-loader {
+  display: none;
+  width: 285px;
+  padding: 5px;
+  border-top: 1px solid #DDD;
+  text-align: center;
+}
+
+.comment-form-loader img {
+  max-width: 20px;
+  max-height: 20px;
+}
+
+.comment-form-show {
+  display: block;
+}
+
+.btn-mini {
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 14px;
+  margin: 0px;
+}
+
+.comment-button{
+  width: 140px;
+}
+
+#required, #comment-error {
+  color: red;
+}
+
+.footer {
+  margin-top: 20px;
 }
