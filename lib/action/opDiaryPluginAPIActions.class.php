@@ -65,9 +65,17 @@ class opDiaryPluginAPIActions extends opJsonApiActions
 
     try
     {
-      $validator = new opValidatorString(array('trim' => true, 'required' => true));
-      $form['title'] = $validator->clean($request->getParameter('title'));
-      $form['body'] =  $validator->clean($request->getParameter('body'));
+      try
+      {
+        $validator = new opValidatorString(array('trim' => true, 'required' => true));
+        $form['title'] = $validator->clean($request->getParameter('title'));
+        $form['body'] =  $validator->clean($request->getParameter('body'));
+      }
+      catch (sfValidatorError $e)
+      {
+        $target = !$form['title'] ? 'title' : 'body';
+        throw new opDiaryPluginAPIException('invalid '.$target);
+      }
       $form['public_flag'] = $request->getParameter('public_flag');
 
       if (!$form['public_flag'] || (int)$form['public_flag'] < 1 || (int)$form['public_flag'] > 4)
@@ -86,10 +94,6 @@ class opDiaryPluginAPIActions extends opJsonApiActions
     catch (opDiaryPluginAPIException $e)
     {
       throw $e;
-    }
-    catch (sfValidatorError $e)
-    {
-      throw new opDiaryPluginAPIException($e->getMessage());
     }
   }
 

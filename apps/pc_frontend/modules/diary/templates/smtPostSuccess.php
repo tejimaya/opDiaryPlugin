@@ -98,6 +98,7 @@ $(function(){
         $('#successMessage').html(_mes);
       },
       error: function(e) {
+        console.log(e);
         var em = e.responseText;
         if (em.match('Invalid mime type'))
         {
@@ -107,11 +108,11 @@ $(function(){
         {
           alert('ファイルサイズが大きすぎます。');
         }
-        else if (em.match('title parameter is not specified.'))
+        else if (em.match('invalid title'))
         {
           alert('タイトルが空欄です。');
         }
-        else if (em.match('body parameter is not specified.'))
+        else if (em.match('invalid body'))
         {
           alert('本文が空欄です。');
         }
