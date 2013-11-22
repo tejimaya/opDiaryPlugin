@@ -19,17 +19,7 @@ class diaryActions extends opDiaryPluginAPIActions
 {
   public function executePost(sfWebRequest $request)
   {
-    $validator = new opValidatorString(array('trim' => true));
-    try
-    {
-      $cleanTitle = $validator->clean($request['title']);
-      $cleanBody =  $validator->clean($request['body']);
-    }
-    catch (sfValidatorError $e)
-    {
-      $this->forward400Unless(isset($cleanTitle), 'title parameter is not specified.');
-      $this->forward400Unless(isset($cleanBody), 'body parameter is not specified.');
-    }
+    $this->isValidTitleAndBody($request->getParameter('title'), $request->getParameter('body'));
     $this->forward400If(!isset($request['public_flag']) || '' === (string)$request['public_flag'], 'public flag is not specified');
 
     $conn = opDoctrineQuery::getMasterConnection();

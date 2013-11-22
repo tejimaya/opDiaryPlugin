@@ -53,4 +53,19 @@ class opDiaryPluginAPIActions extends opJsonApiActions
 
     return $pager;
   }
+
+  protected function isValidTitleAndBody($title, $body)
+  {
+    try
+    {
+      $validator = new opValidatorString(array('trim' => true, 'required' => true));
+      $cleanTitle = $validator->clean($title);
+      $cleanBody =  $validator->clean($body);
+    }
+    catch (sfValidatorError $e)
+    {
+      $this->forward400Unless(isset($cleanTitle), 'title parameter is not specified.');
+      $this->forward400Unless(isset($cleanBody), 'body parameter is not specified.');
+    }
+  }
 }
