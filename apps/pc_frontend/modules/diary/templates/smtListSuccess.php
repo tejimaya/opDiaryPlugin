@@ -21,7 +21,7 @@ else
     <div>
       <span class="title">${title}</span>
       {{html body_short}}
-      <a href="<?php echo public_path('diary') ?>/${id}" class="readmore">続き</a>
+      <a href="<?php echo public_path('diary') ?>/${id}" class="readmore"><?php echo __('View this diary') ?></a>
     </div>
     <div class="clearfix"></div>
     <div class="row">
@@ -101,7 +101,7 @@ $(function(){
 <?php endif; ?>
 <div id="list"></div>
 <div class="row hide" id="noEntry">
-  <div class="center span12">まだ日記はありません</div>
+  <div class="center span12"><?php echo __('There are no diaries.') ?></div>
 </div>
 <div class="row">
   <div id="loading" class="center">

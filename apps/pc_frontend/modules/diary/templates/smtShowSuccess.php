@@ -70,15 +70,15 @@ op_smt_use_stylesheet('/opDiaryPlugin/css/smt-diary.css', 'last');
 <script id="diarySiblings" type="text/x-jquery-tmpl">
   <div class="row siblings">
     <div class="span12 center">
-      {{if next}}
-      <a href="<?php echo public_path('diary') ?>/${next}" class="btn span5">新しい日記</a>
-      {{else}}
-      <div class="disabled btn span5">新しい日記</div>
-      {{/if}}
       {{if prev}}
-      <a href="<?php echo public_path('diary') ?>/${prev}" class="btn span5">古い日記</a>
+      <a href="<?php echo public_path('diary') ?>/${prev}" class="btn span5"><?php echo __('Previous Diary') ?></a>
       {{else}}
-      <div class="disabled btn span5">古い日記</div>
+      <div class="disabled btn span5"><?php echo __('Previous Diary') ?></div>
+      {{/if}}
+      {{if next}}
+      <a href="<?php echo public_path('diary') ?>/${next}" class="btn span5"><?php echo __('Next Diary') ?></a>
+      {{else}}
+      <div class="disabled btn span5"><?php echo __('Next Diary') ?></div>
       {{/if}}
     </div>
   </div>
