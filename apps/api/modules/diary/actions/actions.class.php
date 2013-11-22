@@ -146,7 +146,7 @@ class diaryActions extends opDiaryPluginAPIActions
       if ('diary' === $request->getParameter('target'))
       {
         $diaryId = $request->getParameter('diary_id');
-        $this->forward400If(!$diaryId, 'diary_id is not specified');
+        $this->forward400If(!$diaryId, 'diary_id parameter is not specified');
 
         $this->memberId = $this->getUser()->getMemberId();
         $this->diary = Doctrine::getTable('Diary')->findOneById($diaryId);
