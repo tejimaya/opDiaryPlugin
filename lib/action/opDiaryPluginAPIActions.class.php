@@ -110,21 +110,33 @@ class opDiaryPluginAPIActions extends opJsonApiActions
 
   protected function getImageFiles($files)
   {
-    $validFiles = array();
+    $images = array();
+    $validImages = array();
+
+    foreach ($files as $file)
+    {
+      $file['size'] && $file['tmp_name'] ? $images[] = $file : null;
+    }
+
+    if (!$images)
+    {
+      return $images;
+    }
+
     try
     {
       $validator = new opValidatorImageFile(array('required' => false));
-      foreach ($files as $key => $file)
+      foreach ($images as $key => $image)
       {
-        $validFile = $validator->clean($file);
+        $validImage = $validator->clean($image);
 
         $f = new File();
-        $f->setFromValidatedFile($validFile);
+        $f->setFromValidatedFile($validImage);
 
-        $validFiles[$key] = $f;
+        $validImages[$key] = $f;
       }
 
-      return $validFiles;
+      return $validImages;
     }
     catch (sfValidatorError $e)
     {
