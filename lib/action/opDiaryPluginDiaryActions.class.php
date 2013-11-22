@@ -35,6 +35,8 @@ class opDiaryPluginDiaryActions extends opDiaryPluginActions
 
   public function executeSmtList(opWebRequest $request)
   {
+    $this->target = 'list';
+
     return sfView::SUCCESS;
   }
 
@@ -78,7 +80,18 @@ class opDiaryPluginDiaryActions extends opDiaryPluginActions
 
   public function executeSmtListMember(sfWebRequest $request)
   {
-    $this->id = isset($request['id']) ? $request['id'] : $this->member->getId();
+    $id = $this->request->getParameter('id');
+    if (!$id || $id == $this->getUser()->getMemberId())
+    {
+      $this->target = 'list_mine';
+      $this->id = $this->member->getId();
+    }
+    else
+    {
+      $this->target = 'list_member';
+      $this->id = $request['id'];
+    }
+
     $this->setTemplate('smtList');
   }
 

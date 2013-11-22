@@ -89,7 +89,7 @@ var diary_id = <?php echo $id ?>;
 
 function getEntry(params)
 {
-  params.id = diary_id;
+  params.diary_id = diary_id;
   $('#loading').show();
   $.getJSON( openpne.apiBase + 'diary/search.json',
     params,
@@ -125,7 +125,12 @@ function getEntry(params)
 }
 
 $(function(){
-  getEntry({apiKey: openpne.apiKey});
+  var params = {
+    apiKey: openpne.apiKey,
+    target: 'diary',
+    diary_id: diary_id,
+  }
+  getEntry(params);
 
   $('#deleteEntryModal .modal-button').click(function(e){
     if(e.target.id == 'execute')

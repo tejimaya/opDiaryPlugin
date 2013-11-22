@@ -2,14 +2,13 @@
 use_helper('opAsset');
 op_smt_use_stylesheet('/opDiaryPlugin/css/smt-diary.css', 'last');
 
-if (isset($id))
+if ('list_member' == $target || 'list_mine' == $target)
 {
-  $gadgetTitle = __('Diaries of %1%', array('%1%'=>$member->getName()));
+  $gadgetTitle = __('Diaries of %1%', array('%1%' => $member->getName()));
 }
 else
 {
   $gadgetTitle = __('Recently Posted Diaries of All');
-  $id = 'null';
 }
 ?>
 
@@ -34,14 +33,13 @@ else
 </script>
 
 <script type="text/javascript">
+var target = "<?php echo $target ?>";
+var id = "<?php echo $id ?>";
+var count = 0;
+var page = 1;
+
 function getList(params)
 {
-  var id = <?php echo $id ?>;
-  if (id != null)
-  {
-    params.id = id;
-  }
-  params.format = 'mini';
   $('#loading').show();
   $.getJSON( openpne.apiBase + 'diary/search.json',
     params,
@@ -55,29 +53,39 @@ function getList(params)
       {
         var entry = $('#diaryEntry').tmpl(json.data);
         $('#list').append(entry);
+        count += json.data.length;
+        page++;
       }
-      if (json.next != false)
+
+      if (count < json.data_count)
       {
-        $('#loadmore').attr('x-page', json.next).show();
+        $('#loadmore').show();
       }
       else
       {
         $('#loadmore').hide();
       }
+
       $('#loading').hide();
     }
   );
 }
 
 $(function(){
-  getList({apiKey: openpne.apiKey});
+  var params = {
+    apiKey: openpne.apiKey,
+    target: target,
+  }
+
+  if ('list_member' == params.target) {
+    params.member_id = id;
+  }
+
+  getList(params);
 
   $('#loadmore').click(function()
   {
-    var params = {
-      apiKey: openpne.apiKey,
-      page: $(this).attr('x-page')
-    };
+    params.page = page;
     getList(params);
   })
 })
