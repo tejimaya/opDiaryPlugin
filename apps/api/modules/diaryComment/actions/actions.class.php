@@ -15,23 +15,19 @@
  * @subpackage action
  * @author     Shunsuke Watanabe <watanabe@craftgear.net>
  */
-class diaryCommentActions extends opJsonApiActions
+class diaryCommentActions extends opDiaryPluginAPIActions
 {
-  public function preExecute()
-  {
-    parent::preExecute();
-    $this->member = $this->getUser()->getMember();
-  }
-
   public function executeSearch(sfWebRequest $request)
   {
-    $this->forward400If('' === (string)$request['diary_id'], 'diary_id parameter is not specified.');
+    $this->forward400If(!$diaryId = $request->getParameter('diary_id'), 'diary_id parameter is not specified.');
 
     $this->memberId = $this->getUser()->getMemberId();
-    $this->comments = Doctrine::getTable('DiaryComment')->createQuery('q')
-                        ->where('diary_id = ?', $request['diary_id'])
-                        ->orderBy('created_at')
-                        ->execute();
+    $options = $this->getOptions($request);
+    $pager = Doctrine::getTable('DiaryComment')->getDiaryCommentPagerForDiary($diaryId, $options['page'], $options['limit']);
+    $pager->init();
+
+    $this->count = $pager->count();
+    $this->comments = $pager->getResults();
   }
 
   public function executePost(sfWebRequest $request)

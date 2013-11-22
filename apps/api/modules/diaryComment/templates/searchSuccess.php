@@ -16,4 +16,5 @@ if (count($comments))
 return array(
   'status' => 'success',
   'data' => $data,
+  'data_count' => $count,
 );
