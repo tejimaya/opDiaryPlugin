@@ -15,16 +15,8 @@
  * @subpackage action
  * @author     Shunsuke Watanabe <watanabe@craftgear.net>
  */
-class diaryActions extends opJsonApiActions
+class diaryActions extends opDiaryPluginAPIActions
 {
-  public function preExecute()
-  {
-    parent::preExecute();
-    //myUser.class.php内でApiキーのチェックが行われているので
-    //preExecuteでユーザ情報を取得してチェックを走らせる
-    $this->member = $this->getUser()->getMember();
-  }
-
   public function executePost(sfWebRequest $request)
   {
     $validator = new opValidatorString(array('trim' => true));
@@ -149,58 +141,28 @@ class diaryActions extends opJsonApiActions
 
   public function executeSearch(sfWebRequest $request)
   {
-    if ($request['format'] == 'mini')
+    try
     {
-      $page = isset($request['page']) ? $request['page'] : 1;
-      $limit = isset($request['limit']) ? $request['limit'] : sfConfig::get('op_json_api_limit', 15);
-      $query = Doctrine::getTable('Diary')->createQuery('c')
-        ->orderBy('created_at desc')
-        ->offset(($page - 1) * $limit)
-        ->limit($limit);
-
-      if ($request['id'])
+      if ('diary' === $request->getParameter('target'))
       {
-        $query->addWhere('member_id = ?', $request['id']);
-        if ($request['id'] == $this->getUser()->getMemberId())
-        {
-          $query->addWhere('public_flag <= ?', DiaryTable::PUBLIC_FLAG_PRIVATE);
-        }
-        else
-        {
-          $relation = null;
-          $relation = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($this->member->getId(), $request['id']);
-          if ($relation && $relation->isFriend())
-          {
-            $query->addWhere('public_flag <= ?', DiaryTable::PUBLIC_FLAG_FRIEND);
-          }
-          else
-          {
-            $query->addWhere('public_flag = ?', DiaryTable::PUBLIC_FLAG_SNS);
-          }
-        }
+        $diaryId = $request->getParameter('diary_id');
+        $this->forward400If(!$diaryId, 'diary_id is not specified');
+
+        $this->memberId = $this->getUser()->getMemberId();
+        $this->diary = Doctrine::getTable('Diary')->findOneById($diaryId);
+
+        $this->setTemplate('show');
       }
       else
       {
-        $query->addWhere('public_flag = ?', DiaryTable::PUBLIC_FLAG_SNS);
-      }
-
-      $this->diaries = $query->execute();
-      $total = $query->count();
-      $this->next = false;
-      if ($total > $page * $limit)
-      {
-        $this->next = $page + 1;
+        $pager = $this->getTargetPager($request, $this->member);
+        $this->diaries = $pager->getResults();
+        $this->count = $pager->count();
       }
     }
-    else
+    catch (Exception $e)
     {
-      $this->forward400If(!isset($request['id']) || '' === (string)$request['id'], 'id is not specified');
-
-      $this->memberId = $this->getUser()->getMemberId();
-      $this->diary = Doctrine::getTable('Diary')->findOneById($request['id']);
-    
-      $this->setTemplate('show');
+      $this->forward400($e->getMessage());
     }
   }
-
 }

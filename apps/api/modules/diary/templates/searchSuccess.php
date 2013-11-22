@@ -14,5 +14,5 @@ if (count($diaries))
 return array(
   'status' => 'success',
   'data' => $data,
-  'next' => $next,
+  'data_count' => $count,
 );
