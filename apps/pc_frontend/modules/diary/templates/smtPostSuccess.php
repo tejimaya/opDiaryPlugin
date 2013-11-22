@@ -37,21 +37,21 @@ function op_get_relative_uri_root()
 
 function getParams()
 {
-  var query = $('form').serializeArray(),
-  json = {apiKey: openpne.apiKey};
+  var query = $('form').serializeArray();
+  var params = { apiKey: openpne.apiKey };
   for (i in query)
   {
-    json[query[i].name] = query[i].value
+    params[query[i].name] = query[i].value
   }
 
   $('input[type="file"]').each(function() {
     if ($(this).val())
     {
-      json[$(this).attr('name')] = $(this).val();
+      params[$(this).attr('name')] = $(this).val();
     }
   });
 
-  return json;
+  return params;
 }
 
 function toggleSubmitState()
@@ -68,20 +68,11 @@ $(function(){
     $('#successMessage').html('');
     toggleSubmitState();
     var params = getParams();
-    var form = $('form');
-    var fd = new FormData(form[0]);
-
-    for (i in params)
-    {
-      fd.append(i, params[i]);
-    }
 
     $.ajax({
       url: openpne.apiBase + "diary/post.json",
       type: 'POST',
-      processData: false,
-      contentType: false,
-      data: fd,
+      data: params,
       dataType: 'json',
       success: function(res) {
         if (params['id'] == '')
