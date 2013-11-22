@@ -51,18 +51,18 @@ class diaryCommentActions extends opDiaryPluginAPIActions
 
   public function executeDelete(sfWebRequest $request)
   {
-    $id = $request['id'];
-    $this->forward400If('' === (string)$id, 'id parameter is not specified.');
+    $commentId = $request['comment_id'];
+    $this->forward400If($commentId, 'comment_id parameter is not specified.');
 
-    $comment = Doctrine::getTable('DiaryComment')->findOneById($id);
+    $comment = Doctrine::getTable('DiaryComment')->findOneById($commentId);
 
-    $this->forward400If(false === $comment, 'the comment does not exist. id:'.$id);
-    $this->forward400If(false === $comment->isDeletable($this->member->getId()), 'you can not delete this comment. id:'.$id);
+    $this->forward400If(!$comment, 'comment does not exist.');
+    $this->forward400If(!$comment->isDeletable($this->member->getId()), 'you can not delete this comment.');
 
     $isDeleted = $comment->delete();
     if ($isDeleted)
     {
-      $this->id = $id;
+      $this->commentId = $commentId;
     }
     else
     {

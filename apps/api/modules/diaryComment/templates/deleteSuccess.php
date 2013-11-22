@@ -1,5 +1,5 @@
 <?php
 return array(
   'status' => 'success',
-  'data' => array('id'=>$id),
+  'data' => array('comment_id' => $commentId),
 );
