@@ -181,6 +181,7 @@ function postDiaryComment (params) {
     toggleSubmitState(['input[type=submit]', '.comment-form-loader']);
   };
 
+  $('#required').hide();
   ajax({
     url: 'diary_comment/post',
     data: params,

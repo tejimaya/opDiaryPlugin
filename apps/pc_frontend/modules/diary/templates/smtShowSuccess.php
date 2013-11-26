@@ -39,6 +39,7 @@ op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_comment_functions.js', 'last'
       &nbsp;
       </div>
       <div class="comment-form">
+        <div id='comment-error' class="row hide"></div>
         <textarea id="commentBody"></textarea>
         <input type="submit" name="submit" class="btn btn-primary btn-mini comment-button" id="postComment" value="<?php echo __('Post a diary comment') ?>" />
       </div>
@@ -76,6 +77,15 @@ var diary_id = <?php echo $id ?>;
 var comment_count = 0;
 var comment_page = 1;
 
+function isInputValue (arg) {
+  if (0 >= jQuery.trim($(arg).val()).length)
+  {
+    return false;
+  }
+
+  return true;
+}
+
 $(function(){
   var params = getParams('diary_search');
   getEntry(params);
@@ -90,6 +100,11 @@ $(function(){
   })
 
   $(document).on('click', '#postComment',function(){
+    if (!isInputValue('textarea#commentBody')) {
+      $('#comment-error').html("<?php echo __('Required.') ?>").show();
+      return -1;
+    }
+
     toggleSubmitState(['input[type=submit]', '.comment-form-loader']);
     postDiaryComment( getParams('diary_comment_post') );
   })
