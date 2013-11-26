@@ -116,6 +116,10 @@ $(function(){
         {
           alert('本文が空欄です。');
         }
+        else if (em.match('invalid deleteCheck'))
+        {
+          alert('画像を上書き投稿する場合は削除するにチェックを入れてください。');
+        }
         else
         {
           alert('日記の作成に失敗しました。');
