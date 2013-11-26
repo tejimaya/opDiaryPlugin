@@ -24,11 +24,6 @@ op_smt_use_javascript('Selection.js', 'last');
 op_smt_use_javascript('decoration.js', 'last');
 ?>
 
-<script id="successMessageTemplate" type="text/x-jquery-tmpl">
-    投稿しました<br/>
-    <a href="<?php echo public_path('diary') ?>/${id}">日記を見る</a>
-</script>
-
 <script type="text/javascript">
 function op_get_relative_uri_root()
 {
@@ -65,7 +60,6 @@ $(function(){
 
   $("#post_diary").click(function()
   {
-    $('#successMessage').html('');
     toggleSubmitState();
     var params = getParams();
     var form = $('form');
@@ -84,18 +78,7 @@ $(function(){
       data: fd,
       dataType: 'json',
       success: function(res) {
-        if (params['id'] == '')
-        {
-          $('#id').val('');
-          $('#title').val('');
-          $('#diary_body').val('');
-          $('#diary_public_flag_1').attr('checked', true);
-          $('#diary_photo_1').val('');
-          $('#diary_photo_2').val('');
-          $('#diary_photo_3').val('');
-        }
-        var _mes = $('#successMessageTemplate').tmpl(res['data']);
-        $('#successMessage').html(_mes);
+        window.location = '/diary/' + res.data.id;
       },
       error: function(e) {
         console.log(e);
@@ -124,10 +107,9 @@ $(function(){
         {
           alert('日記の作成に失敗しました。');
         }
-      },
-      complete: function() {
+
         toggleSubmitState();
-      }
+      },
     });
   });
 })
@@ -183,7 +165,5 @@ $(function(){
   <hr class="toumei">
   <div id="loading" class="center hide">
     <?php echo op_image_tag('ajax-loader.gif');?>
-  </div>
-  <div id="successMessage" class="center">
   </div>
 </div>
