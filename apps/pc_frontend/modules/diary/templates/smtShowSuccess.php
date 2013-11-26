@@ -90,7 +90,7 @@ $(function(){
   })
 
   $(document).on('click', '#postComment',function(){
-    toggleSubmitState(['input[type=submit]', '.commet-form-loader']);
+    toggleSubmitState(['input[type=submit]', '.comment-form-loader']);
     postDiaryComment( getParams('diary_comment_post') );
   })
 

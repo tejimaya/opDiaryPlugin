@@ -22,6 +22,7 @@ op_smt_use_javascript('/opDiaryPlugin/js/jquery.upload-1.0.2.min.js', 'last');
 op_smt_use_javascript('op_emoji.js', 'last');
 op_smt_use_javascript('Selection.js', 'last');
 op_smt_use_javascript('decoration.js', 'last');
+op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_comment_functions.js', 'last');
 ?>
 
 <script type="text/javascript">
@@ -30,87 +31,13 @@ function op_get_relative_uri_root()
   return "<?php echo $relativeUrlRoot;?>";
 }
 
-function getParams()
-{
-  var query = $('form').serializeArray(),
-  json = {apiKey: openpne.apiKey};
-  for (i in query)
-  {
-    json[query[i].name] = query[i].value
-  }
-
-  $('input[type="file"]').each(function() {
-    if ($(this).val())
-    {
-      json[$(this).attr('name')] = $(this).val();
-    }
-  });
-
-  return json;
-}
-
-function toggleSubmitState()
-{
-  $('#loading').toggle();
-  $('input[name=submit]').toggle();
-}
-
 $(function(){
   $("#diary_body").opEmoji();
 
   $("#post_diary").click(function()
   {
-    toggleSubmitState();
-    var params = getParams();
-    var form = $('form');
-    var fd = new FormData(form[0]);
-
-    for (i in params)
-    {
-      fd.append(i, params[i]);
-    }
-
-    $.ajax({
-      url: openpne.apiBase + "diary/post.json",
-      type: 'POST',
-      processData: false,
-      contentType: false,
-      data: fd,
-      dataType: 'json',
-      success: function(res) {
-        window.location = '/diary/' + res.data.id;
-      },
-      error: function(e) {
-        console.log(e);
-        var em = e.responseText;
-        if (em.match('Invalid mime type'))
-        {
-          alert('ファイル形式が間違っています。');
-        }
-        else if (em.match('File is too large'))
-        {
-          alert('ファイルサイズが大きすぎます。');
-        }
-        else if (em.match('invalid title'))
-        {
-          alert('タイトルが空欄です。');
-        }
-        else if (em.match('invalid body'))
-        {
-          alert('本文が空欄です。');
-        }
-        else if (em.match('invalid deleteCheck'))
-        {
-          alert('画像を上書き投稿する場合は削除するにチェックを入れてください。');
-        }
-        else
-        {
-          alert('日記の作成に失敗しました。');
-        }
-
-        toggleSubmitState();
-      },
-    });
+    toggleSubmitState(['input[name=submit]', '#loading']);
+    postDiary( getParams('diary_post') );
   });
 })
 </script>

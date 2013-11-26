@@ -7,6 +7,31 @@ function getParams (target) {
     params.target = 'diary';
     params.diary_id = diary_id;
   }
+  else if ('diary_post' == target) {
+    var query = $('form').serializeArray(),
+    json = {apiKey: openpne.apiKey};
+    for (i in query)
+    {
+      json[query[i].name] = query[i].value
+    }
+
+    $('input[type="file"]').each(function() {
+      if ($(this).val())
+      {
+        json[$(this).attr('name')] = $(this).val();
+      }
+    });
+
+    var form = $('form');
+    var fd = new FormData(form[0]);
+
+    for (i in json)
+    {
+      fd.append(i, json[i]);
+    }
+
+    return fd;
+  }
   else if ('diary_list' == target) {
     params.target = 'list';
   }
@@ -86,6 +111,53 @@ function getComments (params) {
   });
 }
 
+function postDiary (params) {
+  var success = function (res) {
+    window.location = '/diary/' + res.data.id;
+  }
+  var error = function (res) {
+    console.log(res);
+    var em = res.responseText;
+    if (em.match('Invalid mime type'))
+    {
+      alert('ファイル形式が間違っています。');
+    }
+    else if (em.match('File is too large'))
+    {
+      alert('ファイルサイズが大きすぎます。');
+    }
+    else if (em.match('invalid title'))
+    {
+      alert('タイトルが空欄です。');
+    }
+    else if (em.match('invalid body'))
+    {
+      alert('本文が空欄です。');
+    }
+    else if (em.match('invalid deleteCheck'))
+    {
+      alert('画像を上書き投稿する場合は削除するにチェックを入れてください。');
+    }
+    else
+    {
+      alert('日記の作成に失敗しました。');
+    }
+
+    toggleSubmitState(['#loading', 'input[name=submit]']);
+  }
+
+  $.ajax({
+    url: openpne.apiBase + "diary/post.json",
+    type: 'POST',
+    processData: false,
+    contentType: false,
+    data: params,
+    dataType: 'json',
+    success: success,
+    error: error,
+  });
+}
+
 function deleteDiary (params) {
   var success = function (res) {
       window.location = '/diary/listMember/' + res.data.member.id;
@@ -106,7 +178,7 @@ function postDiaryComment (params) {
         $('textarea#commentBody').val('');
     };
   var complete = function (res) {
-    toggleSubmitState(['input[type=submit]', '.commet-form-loader']);
+    toggleSubmitState(['input[type=submit]', '.comment-form-loader']);
   };
 
   ajax({
@@ -144,7 +216,10 @@ function ajax (args) {
 }
 
 function toggleSubmitState (args) {
-  for (arg in args) {
-    $(arg).toggle();
-  }
+  args.forEach(
+    function (element)
+    {
+      $(element).toggle();
+    }
+  );
 }
