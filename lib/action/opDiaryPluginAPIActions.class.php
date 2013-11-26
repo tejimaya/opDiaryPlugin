@@ -102,9 +102,9 @@ class opDiaryPluginAPIActions extends opJsonApiActions
     $images = array();
     $validImages = array();
 
-    foreach ($files as $file)
+    foreach ($files as $key => $file)
     {
-      $file['size'] && $file['tmp_name'] ? $images[] = $file : null;
+      $file['size'] && $file['tmp_name'] ? $images[$key] = $file : null;
     }
 
     if (!$images)

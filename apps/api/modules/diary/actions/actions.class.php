@@ -31,14 +31,30 @@ class diaryActions extends opDiaryPluginAPIActions
       $diary->setPublicFlag($params['public_flag']);
       $diary->save($conn);
 
+      $oldDiaryImages = $diary->getDiaryImages();
+
+      foreach ($oldDiaryImages as $oldDiaryImage)
+      {
+        if ($request['diary_photo_'.$oldDiaryImage->number.'_photo_delete'])
+        {
+          $oldDiaryImage->delete($conn);
+          unset($oldDiaryImages[$oldDiaryImage->number]);
+        }
+      }
+
       if ($params['image'])
       {
         foreach ($params['image'] as $key => $image)
         {
+          $number = substr($key, -1);
+          if ($oldDiaryImages[$number])
+          {
+            throw new opDiaryPluginAPIException('invalid deleteCheck');
+          }
           $diaryImage = new DiaryImage();
           $diaryImage->setDiaryId($diary->getId());
           $diaryImage->setFile($image);
-          $diaryImage->setNumber(substr($key, -1));
+          $diaryImage->setNumber($number);
           $diaryImage->save($conn);
 
           $diary->updateHasImages();
@@ -49,6 +65,7 @@ class diaryActions extends opDiaryPluginAPIActions
     }
     catch (opDiaryPluginAPIException $e)
     {
+      $conn->rollback();
       $this->forward400($e->getMessage());
     }
     catch (Exception $e)
