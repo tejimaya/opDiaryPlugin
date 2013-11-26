@@ -54,4 +54,9 @@ class diaryComponents extends opDiaryPluginDiaryComponents
 
     return sfView::SUCCESS;
   }
+
+  public function executeSmtDiaryList($request)
+  {
+    return sfView::SUCCESS;
+  }
 }
