@@ -39,14 +39,19 @@ class diaryComponents extends opDiaryPluginDiaryComponents
 
   public function executeSmtDiaryMember($request)
   {
-    if ($request->hasParameter('id'))
+    $myMember = $this->getUser()->getMember();
+    $id = $request->getParameter('id');
+    if (!$id || $id == $myMember->id)
     {
-      $this->member = Doctrine::getTable('Member')->find($request->getParameter('id'));
+      $this->target = 'list_mine';
+      $this->member = $myMember;
     }
     else
     {
-      $this->member = $this->getUser()->getMember();
+      $this->target = 'list_member';
+      $this->member = Doctrine::getTable('Member')->find($id);
     }
+
     return sfView::SUCCESS;
   }
 }
