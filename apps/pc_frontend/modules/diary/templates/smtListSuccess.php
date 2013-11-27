@@ -6,6 +6,10 @@ if ('list_member' == $target || 'list_mine' == $target)
 {
   $gadgetTitle = __('Diaries of %1%', array('%1%' => $member->getName()));
 }
+elseif ('list_friend' == $target)
+{
+  $gadgetTitle = __('Diaries of %my_friend%');
+}
 else
 {
   $gadgetTitle = __('Recently Posted Diaries of All');

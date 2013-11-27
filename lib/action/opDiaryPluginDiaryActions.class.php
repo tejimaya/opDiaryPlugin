@@ -97,7 +97,14 @@ class opDiaryPluginDiaryActions extends opDiaryPluginActions
 
   public function executeListFriend(sfWebRequest $request)
   {
+    $this->forwardIf($request->isSmartphone(), 'diary', 'smtListFriend');
     $this->pager = Doctrine::getTable('Diary')->getFriendDiaryPager($this->getUser()->getMemberId(), $request['page'], 20);
+  }
+
+  public function executeSmtListFriend(sfWebRequest $request)
+  {
+    $this->target = 'list_friend';
+    $this->setTemplate('smtList');
   }
 
   public function executeShow(sfWebRequest $request)
