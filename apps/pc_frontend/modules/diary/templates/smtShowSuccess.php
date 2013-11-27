@@ -39,12 +39,12 @@ op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_comment_functions.js', 'last'
       &nbsp;
       </div>
       <div class="comment-form">
-      <form class="comment-form">
         <div id='comment-error' class="row hide"></div>
-        <textarea id="commentBody" name="body"></textarea>
-        <input type="file" name="comment-image" />
-      </form>
-        <input type="submit" name="submit" class="btn btn-primary btn-mini comment-button" id="postComment" value="<?php echo __('Post a diary comment') ?>" />
+        <form class="comment-form">
+          <textarea id="commentBody" name="body" placeholder="<?php echo __('Post a diary comment') ?>"></textarea>
+          <input type="file" name="comment-image" />
+        </form>
+        <input type="submit" name="submit" class="btn btn-primary btn-mini comment-button" id="postComment" value="<?php echo __('Post') ?>" />
       </div>
       <div class="comment-form-loader hide">
         <?php echo op_image_tag('ajax-loader.gif', array()) ?>
@@ -125,6 +125,7 @@ $(function(){
   {
     getComments( getParams('diary_comment_search') );
   })
+
 })
 
 </script>

@@ -97,6 +97,10 @@
   padding: 5px;
 }
 
+.comment-form form {
+  margin-bottom: 5px;
+}
+
 .comment-form textarea {
   margin-top: 5px;
 }
