@@ -13,7 +13,7 @@
         </div>
         {{if images}}
           <div class="row">
-            <div class="span11 images center">
+            <div class="images center">
               {{each images}}
                 <div class="span2"><a href="${$value.filename}" target="_blank">{{html $value.imagetag}}</a></div>
               {{/each}}

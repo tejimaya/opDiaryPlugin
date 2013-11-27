@@ -101,6 +101,13 @@
   margin-top: 5px;
 }
 
+.comment-form input[type="file"] {
+  margin: 0;
+  height: 22px;
+  line-height: 22px;
+  width: 238px;
+}
+
 .comment-form-loader {
   display: none;
   width: 285px;
