@@ -52,6 +52,18 @@ function getParams (target) {
   else if ('diary_comment_post' == target) {
     params.diary_id = diary_id;
     params.body = $('textarea#commentBody').val();
+    var image = $('input[name=comment-image]').val();
+    params['comment-iamge'] = image ? image : undefined;
+
+    var form = $('form.comment-form').get()[0];
+    var fd = new FormData(form);
+
+    for (i in params)
+    {
+      fd.append(i, params[i]);
+    }
+
+    return fd;
   }
   else if ('diary_comment_delete' == target) {
     params.comment_id = $("#deleteCommentModal").attr('data-comment-id');
@@ -160,7 +172,7 @@ function postDiary (params) {
 
 function deleteDiary (params) {
   var success = function (res) {
-      window.location = '/diary/listMember/' + res.data.member.id;
+    window.location = '/diary/listMember/' + res.data.member.id;
   };
 
   ajax({
@@ -174,19 +186,27 @@ function deleteDiary (params) {
 
 function postDiaryComment (params) {
   var success = function (res) {
-        $('#comments').prepend($('#diaryComment').tmpl(res.data));
-        $('textarea#commentBody').val('');
-    };
+    $('#comments').prepend($('#diaryComment').tmpl(res.data));
+    $('textarea#commentBody').val('');
+    $('input[type=file]').val('');
+  };
+  var error = function (res) {
+    $('#comment-error').html('投稿に失敗しました。').show();
+  };
   var complete = function (res) {
     toggleSubmitState(['input[type=submit]', '.comment-form-loader']);
   };
 
   $('#required').hide();
-  ajax({
-    url: 'diary_comment/post',
-    data: params,
+  $.ajax({
+    url: openpne.apiBase + "diary_comment/post.json",
     type: 'POST',
+    processData: false,
+    contentType: false,
+    data: params,
+    dataType: 'json',
     success: success,
+    error: error,
     complete: complete,
   });
 }
