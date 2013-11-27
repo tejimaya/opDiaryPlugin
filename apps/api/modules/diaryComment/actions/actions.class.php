@@ -32,25 +32,41 @@ class diaryCommentActions extends opDiaryPluginAPIActions
 
   public function executePost(sfWebRequest $request)
   {
-    $this->forward400If('' === (string)$request['diary_id'], 'diary_id parameter is not specified.');
-    $validator = new opValidatorString(array('trim' => true, 'required' => true));
+    $conn = opDoctrineQuery::getMasterConnection();
+    $conn->beginTransaction();
+
     try
     {
-      $body = $validator->clean($request->getParameter('body'));
+      $params = $this->getDiaryCommentFormParameter($request);
+
+      $diaryComment = new DiaryComment();
+      $diaryComment->setMemberId($this->member->getId());
+      $diaryComment->setDiaryId($params['diary_id']);
+      $diaryComment->setBody($request['body']);
+      $diaryComment->save($conn);
+
+      if ($params['image'])
+      {
+        $diaryImage = new DiaryCommentImage();
+        $diaryImage->setDiaryCommentId($diaryComment->id);
+        $diaryImage->setFile($params['image']);
+        $diaryImage->save($conn);
+        //re-save because file name doesnt have prefix(refs #1643)
+        $diaryImage->getFile()->save($conn);
+      }
+
+      $conn->commit();
     }
-    catch (sfValidatorError $e)
+    catch (opDiaryPluginAPIException $e)
     {
-      $this->forward400('body parameter is not specified.');
+      $conn->rollback();
+      $this->forward400($e->getMessage());
     }
-
-    $diary = Doctrine::getTable('Diary')->findOneById($request['diary_id']);
-    $this->forward400If(false === $diary, 'the specified diary does not exist');
-
-    $diaryComment = new DiaryComment();
-    $diaryComment->setMemberId($this->member->getId());
-    $diaryComment->setDiaryId($request['diary_id']);
-    $diaryComment->setBody($request['body']);
-    $diaryComment->save();
+    catch (Exception $e)
+    {
+      $conn->rollback();
+      throw $e;
+    }
 
     $this->memberId = $this->getUser()->getMemberId();
     $this->comment = $diaryComment;

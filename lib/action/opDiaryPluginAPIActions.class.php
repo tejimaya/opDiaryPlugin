@@ -97,6 +97,47 @@ class opDiaryPluginAPIActions extends opJsonApiActions
     }
   }
 
+  protected function getDiaryCommentFormParameter(sfWebRequest $request)
+  {
+    $form = array(
+      'diary_id' => null,
+      'body' => null,
+      'image' => null,
+    );
+
+    try
+    {
+      $form['diary_id'] = $request->getParameter('diary_id');
+      if (!$form['diary_id'])
+      {
+        throw new opDiaryPluginAPIException('diary_id parameter is not specified.');
+      }
+      if (!Doctrine::getTable('Diary')->findOneById($form['diary_id']))
+      {
+        throw new opDiaryPluginAPIException('invalid diary_id');
+      }
+
+      try
+      {
+        $validator = new opValidatorString(array('trim' => true, 'required' => true));
+        $form['body'] = $validator->clean($request->getParameter('body'));
+      }
+      catch (sfValidatorError $e)
+      {
+        throw new opDiaryPluginAPIException('body parameter is not specified.');
+      }
+
+      $images = $this->getImageFiles($request->getFiles());
+      $form['image'] = $images['comment-image'];
+
+      return $form;
+    }
+    catch (opDiaryPluginAPIException $e)
+    {
+      throw $e;
+    }
+  }
+
   protected function getImageFiles($files)
   {
     $images = array();
