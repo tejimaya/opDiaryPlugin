@@ -79,13 +79,15 @@ function op_api_diary($diary)
     $body = preg_replace('/http.:\/\/maps\.google\.co[[:graph:]]*/', '', $body);
     $bodyShort = op_truncate($body, 60);
     $body = op_auto_link_text($body);
+    //モデルクラス内でsns_termの値が取れずgetPublicFlagLabelでコケるため，緊急処置(see #3502, #3503)
+    Doctrine::getTable('SnsTerm')->configure('ja_JP', 'pc_frontend');
     return array(
       'id'          => $diary->getId(),
       'member'      => op_api_member($diary->getMember()),
       'title'       => $diary->getTitle(),
       'body'        => nl2br(op_api_diary_convert_emoji($body)),
       'body_short'  => nl2br(op_api_diary_convert_emoji($bodyShort)),
-      'public_flag' => $diary->getPublicFlag(),
+      'public_flag' => $diary->getPublicFlagLabel(),
       'ago'         => op_format_activity_time(strtotime($diary->getCreatedAt())),
       'created_at'  => $diary->getCreatedAt(),
     );

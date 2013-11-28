@@ -11,6 +11,9 @@ op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
   <div class="row">
     <div class="gadget_header span12">${title} (${$item.formatTitle()})</div>
   </div>
+  <div class="row public_flag">
+    (${public_flag})
+  </div>
   <div class="row images">
     {{each images}}
       <div class="span4"><a href="${$value.filename}" target="_blank" rel="lightbox[diary]">{{html $value.imagetag}}</a></div>

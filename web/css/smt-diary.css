@@ -54,6 +54,10 @@
   float: right;
 }
 
+#show .public_flag{
+  text-align: right;
+}
+
 #comment-form{
   width: 295px;
   margin-left: 25px;
