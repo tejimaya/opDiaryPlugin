@@ -46,10 +46,6 @@
   margin-bottom: 10px;
 }
 
-#successMessage {
-  margin-bottom: 20px;
-}
-
 #show .edit .btn-group {
   float: right;
 }
@@ -133,10 +129,6 @@
   max-height: 20px;
 }
 
-.comment-form-show {
-  display: block;
-}
-
 .btn-mini {
   padding: 2px 6px;
   font-size: 11px;
@@ -148,7 +140,7 @@
   width: 140px;
 }
 
-#required, #comment-error {
+#comment-error {
   color: red;
 }
 
