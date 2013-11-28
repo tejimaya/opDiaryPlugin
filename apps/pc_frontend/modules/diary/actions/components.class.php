@@ -39,6 +39,7 @@ class diaryComponents extends opDiaryPluginDiaryComponents
 
   public function executeSmtDiaryMember($request)
   {
+    $this->max = ($this->gadget) ? $this->gadget->getConfig('max') : 4;
     $myMember = $this->getUser()->getMember();
     $id = $request->getParameter('id');
     if (!$id || $id == $myMember->id)
@@ -57,11 +58,13 @@ class diaryComponents extends opDiaryPluginDiaryComponents
 
   public function executeSmtDiaryList($request)
   {
+    $this->max = ($this->gadget) ? $this->gadget->getConfig('max') : 4;
     return sfView::SUCCESS;
   }
 
   public function executeSmtDiaryListFriend($request)
   {
+    $this->max = ($this->gadget) ? $this->gadget->getConfig('max') : 4;
     return sfView::SUCCESS;
   }
 }

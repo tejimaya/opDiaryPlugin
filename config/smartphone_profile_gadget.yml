@@ -1,8 +1,17 @@
 smtDiaryMember:
   caption:
-    ja_JP: "メンバーの日記(最新4件表示)"
-    en_US: "Show latest 4 diary entries of a specified member"
+    ja_JP: "最新日記"
+    en_US: "Show latest diaries of a specified member"
   description:
-    ja_JP: "メンバーの日記エントリのうち､最新の4件を表示します｡"
-    en_US: "Show latest 4 diary entries of a specified member"
+    ja_JP: "メンバーの書いた日記を新着順に表示します。"
+    en_US: "Show latest diaries of a specified member"
   component: [diary, smtDiaryMember]
+  config:
+    max:
+      Name:      "max"
+      Caption:   "最大表示件数"
+      FormType:  "select"
+      ValueType:  "int"
+      IsRequired: true
+      Default:    4
+      Choices:    {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7}

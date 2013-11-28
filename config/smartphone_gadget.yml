@@ -1,26 +1,53 @@
 smtDiaryMember:
   caption:
-    ja_JP: "自分の日記(最新4件表示)"
-    en_US: "Show latest 4 diary entries of mine"
+    ja_JP: "自分の最新日記"
+    en_US: "Show latest diaries of mine"
   description:
-    ja_JP: "自分の日記エントリのうち､最新の4件を表示します｡"
-    en_US: "Show latest 4 diary entries of mine"
+    ja_JP: "自分の書いた日記を新着順に表示します｡"
+    en_US: "Show latest diaries of mine"
   component: [diary, smtDiaryMember]
+  config:
+    max:
+      Name:      "max"
+      Caption:   "最大表示件数"
+      FormType:  "select"
+      ValueType:  "int"
+      IsRequired: true
+      Default:    4
+      Choices:    {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7}
 
 smtDiaryList:
   caption:
-    ja_JP: "SNSメンバーの日記(最新4件表示)"
-    en_US: "Show latest 4 diary entries of sns member"
+    ja_JP: "全体の最新日記"
+    en_US: "Show latest diaries of sns member"
   description:
-    ja_JP: "SNSメンバーの日記エントリのうち､最新の4件を表示します｡"
-    en_US: "Show latest 4 diary entries of sns member"
+    ja_JP: "全体の最新日記を新着順に表示します。"
+    en_US: "Show latest diaries of sns member"
   component: [diary, smtDiaryList]
+  config:
+    max:
+      Name:      "max"
+      Caption:   "最大表示件数"
+      FormType:  "select"
+      ValueType:  "int"
+      IsRequired: true
+      Default:    4
+      Choices:    {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7}
 
 smtDiaryListFriend:
   caption:
-    ja_JP: "フレンドの日記(最新4件表示)"
-    en_US: "Show latest 4 diary entries of friend"
+    ja_JP: "マイフレンド最新日記"
+    en_US: "Show latest diaries of friend"
   description:
-    ja_JP: "フレンドの日記エントリのうち､最新の4件を表示します｡"
-    en_US: "Show latest 4 diary entries of friend"
+    ja_JP: "マイフレンドの書いた日記を新着順に表示します。"
+    en_US: "Show latest diaies of friend"
   component: [diary, smtDiaryListFriend]
+  config:
+    max:
+      Name:      "max"
+      Caption:   "最大表示件数"
+      FormType:  "select"
+      ValueType:  "int"
+      IsRequired: true
+      Default:    4
+      Choices:    {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7}

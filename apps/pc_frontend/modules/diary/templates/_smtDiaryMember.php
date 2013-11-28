@@ -13,8 +13,8 @@ $(function(){
     apiKey: openpne.apiKey,
     target: "<?php echo $target ?>",
     member_id: "<?php echo $member->id ?>",
-    limit: 4
-  }
+    limit: "<?php echo $max ?>",
+  };
 
   $.getJSON(openpne.apiBase + 'diary/search.json',
     params,

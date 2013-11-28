@@ -3,8 +3,8 @@ $(function(){
   var params = {
     apiKey: openpne.apiKey,
     target: 'list_friend',
-    limit: 4
-  }
+    limit: "<?php echo $max ?>",
+  };
 
   $.getJSON(openpne.apiBase + 'diary/search.json',
     params,
