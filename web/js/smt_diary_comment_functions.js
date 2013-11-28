@@ -133,6 +133,7 @@ function postDiary (params) {
     if (!mes) {
       mes = '日記の作成に失敗しました。';
     }
+    alert(mes);
     $('.error').html('<p>' + mes + '</p>').show();
 
     toggleSubmitState(['#loading', 'input[name=submit]']);

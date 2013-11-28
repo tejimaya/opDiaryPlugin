@@ -106,7 +106,7 @@ $(function(){
 
   $(document).on('click', '#postComment',function(){
     if (!isInputValue('textarea#commentBody')) {
-      $('#comment-error').html("<?php echo __('Required.') ?>").show();
+      $('#comment-error').html("<?php echo __('Body is required.') ?>").show();
       return -1;
     }
 

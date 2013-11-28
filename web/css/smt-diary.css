@@ -140,14 +140,10 @@
   width: 140px;
 }
 
-#comment-error {
+#comment-error, .error {
   color: red;
 }
 
 .footer {
   margin-top: 20px;
-}
-
-.error {
-  color: red;
 }
