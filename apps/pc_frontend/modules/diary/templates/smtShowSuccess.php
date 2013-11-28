@@ -9,18 +9,7 @@ op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
 
 <script id="diaryEntry" type="text/x-jquery-tmpl">
   <div class="row">
-    <div class="gadget_header span12">${$item.formatTitle()}</div>
-  </div>
-  <div class="row">
-    {{if editable}}
-    <h3 class="span9">${title}</h3>
-    <div class="btn-group span3">
-      <a href="<?php echo public_path('diary/edit'); ?>/${id}" class="btn"><i class="icon-pencil"></i></a>
-      <a href="javascript:void(0)" class="btn" id="deleteEntry"><i class="icon-remove"></i></a>
-    </div>
-    {{else}}
-    <h3 class="span12">${title}</h3>
-    {{/if}}
+    <div class="gadget_header span12">${title} (${$item.formatTitle()})</div>
   </div>
   <div class="row images">
     {{each images}}
@@ -29,6 +18,14 @@ op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
   </div>
   <div class="row body">
     <div class="span12">{{html body}}</div>
+  </div>
+  <div class="row edit">
+    {{if editable}}
+    <div class="btn-group span3">
+      <a href="<?php echo public_path('diary/edit'); ?>/${id}" class="btn"><i class="icon-pencil"></i></a>
+      <a href="javascript:void(0)" class="btn" id="deleteEntry"><i class="icon-remove"></i></a>
+    </div>
+    {{/if}}
   </div>
   {{tmpl "#diarySiblings"}}
   <div id="comment">

@@ -50,6 +50,10 @@
   margin-bottom: 20px;
 }
 
+#show .edit .btn-group {
+  float: right;
+}
+
 #comment-form{
   width: 295px;
   margin-left: 25px;
