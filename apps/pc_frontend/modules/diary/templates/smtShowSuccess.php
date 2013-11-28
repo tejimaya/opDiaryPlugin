@@ -3,6 +3,8 @@ use_helper('opAsset');
 op_smt_use_javascript('/opDiaryPlugin/js/bootstrap-transition.js', 'last');
 op_smt_use_stylesheet('/opDiaryPlugin/css/smt-diary.css', 'last');
 op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_comment_functions.js', 'last');
+op_smt_use_stylesheet('/opDiaryPlugin/css/lightbox.css', 'last');
+op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
 ?>
 
 <script id="diaryEntry" type="text/x-jquery-tmpl">
@@ -22,7 +24,7 @@ op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_comment_functions.js', 'last'
   </div>
   <div class="row images">
     {{each images}}
-      <div class="span4"><a href="${$value.filename}" target="_blank">{{html $value.imagetag}}</a></div>
+      <div class="span4"><a href="${$value.filename}" target="_blank" rel="lightbox[diary]">{{html $value.imagetag}}</a></div>
     {{/each}}
   </div>
   <div class="row body">
