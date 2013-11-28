@@ -2,7 +2,7 @@
 use_helper('opAsset');
 op_smt_use_javascript('/opDiaryPlugin/js/bootstrap-transition.js', 'last');
 op_smt_use_stylesheet('/opDiaryPlugin/css/smt-diary.css', 'last');
-op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_comment_functions.js', 'last');
+op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_functions.js', 'last');
 op_smt_use_stylesheet('/opDiaryPlugin/css/lightbox.css', 'last');
 op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
 ?>

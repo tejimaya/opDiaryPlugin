@@ -22,7 +22,7 @@ op_smt_use_javascript('/opDiaryPlugin/js/jquery.upload-1.0.2.min.js', 'last');
 op_smt_use_javascript('op_emoji.js', 'last');
 op_smt_use_javascript('Selection.js', 'last');
 op_smt_use_javascript('decoration.js', 'last');
-op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_comment_functions.js', 'last');
+op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_functions.js', 'last');
 ?>
 
 <script type="text/javascript">
