@@ -1,3 +1,7 @@
+<?php
+op_smt_use_stylesheet('/opDiaryPlugin/css/lightbox.css', 'last');
+op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
+?>
 <script id="<?php echo $target ?>Comment" type="text/x-jquery-tmpl">
   <div class="row" id="comment${id}">
     <div class="span11 comment-wrapper">
@@ -15,7 +19,7 @@
           <div class="row">
             <div class="images center">
               {{each images}}
-                <div class="span2"><a href="${$value.filename}" target="_blank">{{html $value.imagetag}}</a></div>
+                <div class="span2"><a href="${$value.filename}" target="_blank" rel="lightbox[comment]">{{html $value.imagetag}}</a></div>
               {{/each}}
             </div>
           </div>
