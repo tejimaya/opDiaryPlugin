@@ -129,31 +129,11 @@ function postDiary (params) {
   }
   var error = function (res) {
     console.log(res);
-    var em = res.responseText;
-    if (em.match('Invalid mime type'))
-    {
-      alert('ファイル形式が間違っています。');
+    var mes = getErrorMessage(res.responseText);
+    if (!mes) {
+      mes = '日記の作成に失敗しました。';
     }
-    else if (em.match('File is too large'))
-    {
-      alert('ファイルサイズが大きすぎます。');
-    }
-    else if (em.match('invalid title'))
-    {
-      alert('タイトルが空欄です。');
-    }
-    else if (em.match('invalid body'))
-    {
-      alert('本文が空欄です。');
-    }
-    else if (em.match('invalid deleteCheck'))
-    {
-      alert('画像を上書き投稿する場合は削除するにチェックを入れてください。');
-    }
-    else
-    {
-      alert('日記の作成に失敗しました。');
-    }
+    $('.error').html('<p>' + mes + '</p>').show();
 
     toggleSubmitState(['#loading', 'input[name=submit]']);
   }
@@ -191,13 +171,17 @@ function postDiaryComment (params) {
     $('input[type=file]').val('');
   };
   var error = function (res) {
-    $('#comment-error').html('投稿に失敗しました。').show();
+    var mes = getErrorMessage(res.responseText);
+    if (!mes) {
+      mes = '投稿に失敗しました。';
+    }
+    $('#comment-error').html('<p>' + mes + '</p>').show();
   };
   var complete = function (res) {
     toggleSubmitState(['input[type=submit]', '.comment-form-loader']);
   };
 
-  $('#required').hide();
+  $('#comment-error').hide();
   $.ajax({
     url: openpne.apiBase + "diary_comment/post.json",
     type: 'POST',
@@ -222,6 +206,27 @@ function deleteDiaryComment (params) {
     type: 'POST',
     success: success,
   });
+}
+
+function getErrorMessage (arg) {
+  var mes = null;
+  if (arg.match('Invalid mime type')) {
+    mes = 'ファイル形式が間違っています。';
+  }
+  else if (arg.match('File is too large')) {
+    mes = 'ファイルサイズが大きすぎます。';
+  }
+  else if (arg.match('invalid title')) {
+    mes = 'タイトルが空欄です。';
+  }
+  else if (arg.match('invalid body')) {
+    mes = '本文が空欄です。';
+  }
+  else if (arg.match('invalid deleteCheck')) {
+    mes = '画像を上書き投稿する場合は削除するにチェックを入れてください。';
+  }
+
+  return mes;
 }
 
 function ajax (args) {

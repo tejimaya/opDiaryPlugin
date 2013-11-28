@@ -48,6 +48,7 @@ $(function(){
 
 <div class="row">
   <div class="span12">
+    <div class="error hide"></div>
     <form>
     <input type="hidden" name="id" id="id" value="<?php echo $diaryId ?>"/>
     <label class="control-label span12"><?php echo __('Title') ?></label>

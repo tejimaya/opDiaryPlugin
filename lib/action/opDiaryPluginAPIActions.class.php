@@ -124,7 +124,7 @@ class opDiaryPluginAPIActions extends opJsonApiActions
       }
       catch (sfValidatorError $e)
       {
-        throw new opDiaryPluginAPIException('body parameter is not specified.');
+        throw new opDiaryPluginAPIException('invalid body');
       }
 
       $images = $this->getImageFiles($request->getFiles());
