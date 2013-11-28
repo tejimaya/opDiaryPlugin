@@ -145,7 +145,7 @@ class opDiaryPluginAPIActions extends opJsonApiActions
 
     foreach ($files as $key => $file)
     {
-      $file['size'] && $file['tmp_name'] ? $images[$key] = $file : null;
+      $file['name'] ? $images[$key] = $file : null;
     }
 
     if (!$images)
