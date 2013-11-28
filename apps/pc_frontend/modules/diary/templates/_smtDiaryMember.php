@@ -51,6 +51,11 @@ $(function(){
 <div id="diaryMember" style="margin-left: 0px;">
 </div>
 
+<?php if ('list_mine' === $target): ?>
+<div class="row">
+<?php echo link_to(__('Post a diary'), '@diary_new', array('style' => 'float:right')) ?>
+</div>
+<?php endif; ?>
 <div class="row hide" id="diary-member-readmore">
 <?php echo link_to(__('More'), '@diary_list_member?id='.$member->id, array('class' => 'btn btn-block span11')) ?>
 </div>
