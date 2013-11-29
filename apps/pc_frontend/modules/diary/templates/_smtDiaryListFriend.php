@@ -1,4 +1,7 @@
-<?php op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_gadget.js', 'last') ?>
+<?php
+use_helper('Javascript', 'opUtil', 'opAsset');
+op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_gadget.js', 'last');
+?>
 <script type="text/javascript">
 $(function(){
   var params = {
