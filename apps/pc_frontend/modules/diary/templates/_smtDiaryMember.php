@@ -11,7 +11,8 @@ $(function(){
     limit: "<?php echo $max ?>",
   };
 
-  search(params, 'diaryMember', "<?php echo __('There are no diaries.') ?>");
+  var f = new diaryGadget();
+  f.search(params, 'diaryMember', "<?php echo __('There are no diaries.') ?>");
 });
 </script>
 

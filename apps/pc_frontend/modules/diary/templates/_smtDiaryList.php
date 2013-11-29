@@ -10,7 +10,8 @@ $(function(){
     limit: "<?php echo $max ?>",
   };
 
-  search(params, 'diaryList', "<?php echo __('There are no diaries.') ?>");
+  var f = new diaryGadget();
+  f.search(params, 'diaryList', "<?php echo __('There are no diaries.') ?>");
 });
 </script>
 
