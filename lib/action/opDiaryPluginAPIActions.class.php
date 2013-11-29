@@ -11,7 +11,7 @@ class opDiaryPluginAPIActions extends opJsonApiActions
   {
     return array(
       'page' => $request->getParameter('page') ? $request['page'] : 1,
-      'limit' => $request->getParameter('limit') ? $request['limit'] : sfConfig::get('op_json_api_limit', 15),
+      'limit' => $request->getParameter('limit') ? $request['limit'] : sfConfig::get('app_json_api_limit', 15),
     );
   }
 
@@ -123,6 +123,11 @@ class opDiaryPluginAPIActions extends opJsonApiActions
     catch (sfValidatorError $e)
     {
       throw new opDiaryPluginAPIException('invalid body');
+    }
+    $limit = sfConfig::get('app_smt_comment_post_limit');
+    if ($limit && mb_strlen($request['body']) > $limit)
+    {
+      throw new opDiaryPluginAPIException('body parameter is too long');
     }
 
     $images = $this->getImageFiles($request->getFiles());
