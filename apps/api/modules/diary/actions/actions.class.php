@@ -56,6 +56,8 @@ class diaryActions extends opDiaryPluginAPIActions
           $diaryImage->setFile($image);
           $diaryImage->setNumber($number);
           $diaryImage->save($conn);
+          //re-save because file name doesnt have prefix(refs #1643)
+          $diaryImage->getFile()->save($conn);
 
           $diary->updateHasImages();
         }
