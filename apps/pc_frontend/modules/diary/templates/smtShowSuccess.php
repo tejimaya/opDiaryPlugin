@@ -9,7 +9,7 @@ op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
 
 <script id="diaryEntry" type="text/x-jquery-tmpl">
   <div class="row">
-    <div class="gadget_header span12">${title} (${$item.formatTitle()})</div>
+    <div class="gadget_header span12 title">${title}<br />(${$item.formatTitle()})</div>
   </div>
   <div class="row public_flag">
     (${public_flag})

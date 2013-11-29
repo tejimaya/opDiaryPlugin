@@ -18,21 +18,23 @@ else
 
 <script id="diaryEntry" type="text/x-jquery-tmpl">
 <div class="row entry">
-  <div class="span3">
-    <a href="${member.profile_url}"><img src="${member.profile_image}" class="rad10" width="57" height="57"></a>
+  <div class="span3 member-information">
+    <span class="image">
+      <a href="${member.profile_url}"><img src="${member.profile_image}" class="rad10"></a>
+    </span>
+    <br />
+    <span class="member-name">
+      <a href="${member.profile_url}">${member.name}</a>
+    </span>
   </div>
-  <div class="span9">
-    <div>
-      <span class="title">${title}</span>
-      {{html body_short}}
-      <a href="<?php echo public_path('diary') ?>/${id}" class="readmore"><?php echo __('View this diary') ?></a>
-    </div>
+  <div class="span9 diary-information">
+    <span class="title">${title}</span>
+    <span class="ago">${ago}</span>
     <div class="clearfix"></div>
-    <div class="row">
-      <p class="span3"><a href="${member.profile_url}">{{if member.screen_name}} ${member.screen_name} {{else}} ${member.name} {{/if}}</a></p>
-      <p class="span6">${ago}</p>
-    </div>
+    <span class="body">{{html body_short}}{{if body.length >= 60}}&hellip;{{/if}}</span>
+    <span class="view"><a href="<?php echo public_path('diary') ?>/${id}" class="readmore"><?php echo __('View this diary') ?></a></span>
   </div>
+  <div class="clearfix"></div>
 </div>
 </script>
 

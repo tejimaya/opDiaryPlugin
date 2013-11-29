@@ -6,9 +6,15 @@
   float:right;
 }
 
+.clearfix {
+  clear: both;
+}
+
 .entry {
   border-bottom: 1px solid silver;
   padding: 5px 0px;
+  height: auto;
+  position: relative;
 }
 
 .title {
@@ -54,6 +60,7 @@
   text-align: right;
 }
 
+/* comment */
 #comment-form{
   width: 295px;
   margin-left: 25px;
@@ -144,6 +151,44 @@
   color: red;
 }
 
-.footer {
-  margin-top: 20px;
+/* comment end */
+
+/* diary page */
+div.member-information {
+  float: left;
 }
+
+div.member-information img {
+  width: 57px;
+  height: 57px;
+}
+
+div.member-information .member-name {
+  font-size: 0.9em;
+}
+
+div.diary-information {
+  float: left;
+}
+
+div.diary-information .ago{
+  float: right;
+}
+
+div.diary-information .body{
+  float: left;
+  width: 80%;
+}
+
+div.diary-information .view{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+#show div.gadget_header.title {
+  background-color: #333;
+  color: #ffffff;
+  height: auto;
+}
+/* diary page end */
