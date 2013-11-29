@@ -1,3 +1,4 @@
+<?php op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_gadget.js', 'last') ?>
 <script type="text/javascript">
 $(function(){
   var params = {
@@ -6,28 +7,7 @@ $(function(){
     limit: "<?php echo $max ?>",
   };
 
-  $.getJSON(openpne.apiBase + 'diary/search.json',
-    params,
-    function(res)
-    {
-      if (res.data.length > 0)
-      {
-        var entry = $('#diaryListFriendEntry').tmpl(res.data, {
-          getCreatedAt: function() {
-            var date = this.data.created_at.split(' ')[0].split('-')
-            return date[1] + '月' + date[2] + '日';
-          }
-        }
-        );
-        $('#diaryListFriend').append(entry);
-        $('#diary-list-friend-readmore').show();
-      }
-      else
-      {
-        $('#diaryListFriend').append("<p><?php echo __('There are no diaries.') ?></p>");
-      }
-    }
-  )
+  search(params, 'diaryListFriend', "<?php echo __('There are no diaries.') ?>");
 })
 </script>
 
@@ -44,9 +24,9 @@ $(function(){
   <div class="gadget_header span12"><?php echo __('Recently Posted Diaries of %my_friend%') ?></div>
 </div>
 <hr class="toumei" />
-<div id="diaryListFriend" style="margin-left: 0px;">
+<div id="diaryListFriend">
 </div>
 
-<div class="row hide" id="diary-list-friend-readmore">
+<div class="row hide" id="diaryListFriendReadmore">
 <?php echo link_to(__('More'), '@diary_list_friend', array('class' => 'btn btn-block span11')) ?>
 </div>
