@@ -1,4 +1,5 @@
 function search (params, target, noEntry) {
+  $("#"+target+" div.loading").toggle();
   $.getJSON(openpne.apiBase + 'diary/search.json',
     params,
     function(res) {
@@ -13,6 +14,7 @@ function search (params, target, noEntry) {
         $('#'+target+'Readmore').show();
       }
 
+      $("#"+target+" div.loading").toggle();
       $('#'+target).append(entry ? entry : noEntry);
     }
   );

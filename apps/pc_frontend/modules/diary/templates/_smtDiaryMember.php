@@ -28,6 +28,9 @@ $(function(){
 </div>
 <hr class="toumei" />
 <div id="diaryMember" style="margin-left: 0px;">
+  <div class="loading center hide">
+    <?php echo op_image_tag('ajax-loader.gif');?>
+  </div>
 </div>
 
 <?php if ('list_mine' === $target): ?>

@@ -25,6 +25,9 @@ $(function(){
 </div>
 <hr class="toumei" />
 <div id="diaryList">
+  <div class="loading center hide">
+    <?php echo op_image_tag('ajax-loader.gif');?>
+  </div>
 </div>
 
 <div class="row hide" id="diaryListReadmore">
