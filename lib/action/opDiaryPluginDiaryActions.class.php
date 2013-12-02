@@ -182,9 +182,7 @@ class opDiaryPluginDiaryActions extends opDiaryPluginActions
         $this->diaryImages[$image->number] = $image;
       }
     }
-    $body = $this->diary->getBody();
-    $body = preg_replace(array('/<op:.*?>/', '/<\/op:.*?>/'), '', $body);
-    $this->diary->setBody($body);
+
     $this->smtPost($request);
   }
 

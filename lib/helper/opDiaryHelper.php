@@ -75,11 +75,11 @@ function op_api_diary($diary)
 {
   if($diary)
   {
-    $body = preg_replace(array('/&lt;op:.*?&gt;/', '/&lt;\/op:.*?&gt;/'), '', $diary->getBody());
-    $bodyShort = op_truncate($body, 60);
-    $body = op_auto_link_text($body);
+    $body = op_auto_link_text(op_decoration($diary->body));
+    $bodyShort = op_truncate(op_decoration($diary->body, true), 60);
     //モデルクラス内でsns_termの値が取れずgetPublicFlagLabelでコケるため，緊急処置(see #3502, #3503)
     Doctrine::getTable('SnsTerm')->configure('ja_JP', 'pc_frontend');
+
     return array(
       'id'          => $diary->getId(),
       'member'      => op_api_member($diary->getMember()),
