@@ -7,7 +7,7 @@ if (count($diaries))
 {
   foreach ($diaries as $diary)
   {
-    $data[] = op_api_diary($diary);
+    $data[] = op_api_diary($diary, 'short');
   }
 }
 

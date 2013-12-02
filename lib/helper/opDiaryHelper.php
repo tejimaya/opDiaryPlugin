@@ -71,25 +71,42 @@ function op_api_diary_convert_emoji($str)
     return preg_replace_callback($pattern, 'emojicode_to_image', $str);
 }
 
-function op_api_diary($diary)
+function op_api_diary($diary, $option = null)
 {
   if($diary)
   {
-    $body = op_auto_link_text(op_decoration($diary->body));
-    $bodyShort = op_truncate(op_decoration($diary->body, true), 60);
     //モデルクラス内でsns_termの値が取れずgetPublicFlagLabelでコケるため，緊急処置(see #3502, #3503)
     Doctrine::getTable('SnsTerm')->configure('ja_JP', 'pc_frontend');
 
-    return array(
-      'id'          => $diary->getId(),
+    $data = array(
+      'id'          => $diary->id,
       'member'      => op_api_member($diary->getMember()),
-      'title'       => $diary->getTitle(),
-      'body'        => nl2br(op_api_diary_convert_emoji($body)),
-      'body_short'  => nl2br(op_api_diary_convert_emoji($bodyShort)),
+      'title'       => $diary->title,
       'public_flag' => $diary->getPublicFlagLabel(),
-      'ago'         => op_format_activity_time(strtotime($diary->getCreatedAt())),
-      'created_at'  => $diary->getCreatedAt(),
+      'created_at'  => $diary->created_at,
     );
+
+    if ('short' == $option)
+    {
+      $bodyShort = op_truncate(op_decoration($diary->body, true), 60);
+      if (mb_strlen($diary->body) >= 60)
+      {
+        $bodyShort .= '&hellip;';
+      }
+      $data['body_short'] = nl2br(op_api_diary_convert_emoji($bodyShort));
+    }
+    else
+    {
+      $body = op_auto_link_text(op_decoration($diary->body));
+      $data['body'] = nl2br(op_api_diary_convert_emoji($body));
+      $images = $diary->getDiaryImages();
+      foreach ($images as $image)
+      {
+        $data['images'][] = op_api_diary_image($image);
+      }
+    }
+
+    return $data;
   }
 }
 

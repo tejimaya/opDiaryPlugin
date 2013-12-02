@@ -32,9 +32,9 @@ else
 
   <div class="span9 diary-information">
     <span class="title">${title}</span>
-    <span class="ago">${$item.getCreatedAt("ago")}</span>
+    <span class="ago">${$item.getCreatedAt()}</span>
     <div class="clearfix"></div>
-    <span class="body">{{html body_short}}{{if body.length >= 60}}&hellip;{{/if}}</span>
+    <span class="body">{{html body_short}}</span>
     <span class="view"><a href="<?php echo public_path('diary') ?>/${id}" class="readmore"><?php echo __('View this diary') ?></a></span>
   </div>
   <div class="clearfix"></div>
