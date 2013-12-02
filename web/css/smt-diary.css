@@ -74,16 +74,24 @@
   background-color: whiteSmoke;
 }
 
+/* comment box */
 .comment-wrapper {
   width: 285px;
   display: block;
   padding: 5px;
   border-top: 1px solid #DDD;
+  position: relative;
+  height: auto;
 }
 
-.comment-member-image {
+.comment-member span.member-image {
   float: left;
   width: 23px;
+}
+
+.comment-member span.member-name {
+  float: left;
+  margin-left: 5px;
 }
 
 .comment-content {
@@ -91,18 +99,21 @@
   width: 257px;
 }
 
-.comment-name-and-body {
-  display: inline;
-  float: left;
-  font-size: 12px;
+.comment-content span.created_at {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.9em;
+  margin: 5px;
 }
 
-.comment-control {
-  display: block;
-  width: 262px;
-  margin-left: 28px;
-  font-size: 11px;
+.comment-control span.delete {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 5px;
 }
+/* comment box end */
 
 .comment-form {
   padding: 5px;
@@ -156,6 +167,7 @@
 /* diary page */
 div.member-information {
   float: left;
+  text-align: center;
 }
 
 div.member-information img {

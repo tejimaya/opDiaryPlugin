@@ -1,6 +1,7 @@
 <?php
 use_helper('opAsset');
 op_smt_use_stylesheet('/opDiaryPlugin/css/smt-diary.css', 'last');
+op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_functions.js', 'last');
 
 if ('list_member' == $target || 'list_mine' == $target)
 {
@@ -18,6 +19,7 @@ else
 
 <script id="diaryEntry" type="text/x-jquery-tmpl">
 <div class="row entry">
+
   <div class="span3 member-information">
     <span class="image">
       <a href="${member.profile_url}"><img src="${member.profile_image}" class="rad10"></a>
@@ -27,74 +29,56 @@ else
       <a href="${member.profile_url}">${member.name}</a>
     </span>
   </div>
+
   <div class="span9 diary-information">
     <span class="title">${title}</span>
-    <span class="ago">${ago}</span>
+    <span class="ago">${$item.getCreatedAt("ago")}</span>
     <div class="clearfix"></div>
     <span class="body">{{html body_short}}{{if body.length >= 60}}&hellip;{{/if}}</span>
     <span class="view"><a href="<?php echo public_path('diary') ?>/${id}" class="readmore"><?php echo __('View this diary') ?></a></span>
   </div>
   <div class="clearfix"></div>
 </div>
+
 </script>
 
 <script type="text/javascript">
 var target = "<?php echo $target ?>";
-var id = "<?php echo $id ?>";
+var member_id = "<?php echo $id ?>";
 var count = 0;
 var page = 1;
 
-function getList(params)
-{
-  $('#loading').show();
-  $.getJSON( openpne.apiBase + 'diary/search.json',
-    params,
-    function(json)
-    {
-      if (json.data.length === 0)
-      {
-        $('#noEntry').show();
-      }
-      else
-      {
-        var entry = $('#diaryEntry').tmpl(json.data);
-        $('#list').append(entry);
-        count += json.data.length;
-        page++;
-      }
-
-      if (count < json.data_count)
-      {
-        $('#loadmore').show();
-      }
-      else
-      {
-        $('#loadmore').hide();
-      }
-
-      $('#loading').hide();
+function getList (params) {
+  var success = function (json) {
+    if (json.data.length === 0) {
+      $('#noEntry').show();
     }
-  );
+    else {
+      var entry = $('#diaryEntry').tmpl(json.data, { getCreatedAt: getCreatedAt });
+      $('#list').append(entry);
+      count += json.data.length;
+      page++;
+    }
+
+    (count < json.data_count) ? $('#loadmore').show() : $('#loadmore').hide();
+
+    loading.hide();
+  }
+
+  var loading = $('#loading');
+  loading.show();
+  $.getJSON( openpne.apiBase + 'diary/search.json', params, success );
 }
 
-$(function(){
-  var params = {
-    apiKey: openpne.apiKey,
-    target: target,
-  }
-
-  if ('list_member' == params.target) {
-    params.member_id = id;
-  }
-
+$(function() {
+  var params = getParams( 'diary_' + target );
   getList(params);
 
-  $('#loadmore').click(function()
-  {
+  $('#loadmore').click( function() {
     params.page = page;
     getList(params);
-  })
-})
+  });
+});
 </script>
 
 <div class="row">

@@ -42,6 +42,9 @@ function getParams (target) {
     params.target = 'list_member';
     params.member_id = member_id || undefined;
   }
+  else if ('diary_list_friend' == target) {
+    params.target = 'list_friend';
+  }
   else if ('diary_delete' == target) {
     params.diary_id = diary_id;
   }
@@ -74,14 +77,7 @@ function getParams (target) {
 
 function getEntry (params) {
   var success = function (res) {
-    var entry = $('#diaryEntry').tmpl(res.data,
-    {
-      formatTitle: function ()
-      {
-        var _date = new Date(this.data.created_at.replace(/-/g,'/'));
-        return _date.getMonth()+1 + '月' + _date.getDate() + '日の日記';
-      }
-    });
+    var entry = $('#diaryEntry').tmpl(res.data, { getCreatedAt: getCreatedAt, });
     $('#show').html(entry);
     getComments( getParams('diary_comment_search') );
   }
@@ -103,13 +99,14 @@ function getComments (params) {
     else
     {
       comment_count += res.data.comments.length;
-      var comments = $('#diaryComment').tmpl(res.data.comments);
-      $('#loadmore').show();
+      var comments = $('#diaryComment').tmpl(res.data.comments, { getCreatedAt: getCreatedAt });
       $('#comments').append(comments);
 
-      if (res.data_count - comment_count == 0)
-      {
+      if (res.data_count - comment_count == 0) {
         $('#loadmore').hide();
+      }
+      else {
+        $('#loadmore').show();
       }
     }
     $('#loading').hide();
@@ -167,7 +164,7 @@ function deleteDiary (params) {
 
 function postDiaryComment (params) {
   var success = function (res) {
-    $('#comments').prepend($('#diaryComment').tmpl(res.data));
+    $('#comments').prepend($('#diaryComment').tmpl(res.data, { getCreatedAt: getCreatedAt }));
     $('textarea#commentBody').val('');
     $('input[type=file]').val('');
   };
@@ -249,4 +246,14 @@ function toggleSubmitState (args) {
       $(element).toggle();
     }
   );
+}
+
+function getCreatedAt (option) {
+  if ('ago' == option) {
+    if (this.data.ago.length < 10) {
+      return this.data.ago;
+    }
+  }
+  var date = this.data.created_at.split(' ')[0].split('-')
+  return date[1] + '月' + date[2] + '日';
 }
