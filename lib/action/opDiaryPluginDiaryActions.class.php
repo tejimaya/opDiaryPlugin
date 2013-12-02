@@ -174,6 +174,14 @@ class opDiaryPluginDiaryActions extends opDiaryPluginActions
   public function executeSmtEdit(sfWebRequest $request)
   {
     $this->diary = Doctrine::getTable('Diary')->findOneById($request['id']);
+    $this->diaryImages = array();
+    if ($this->diary->has_images)
+    {
+      foreach ($this->diary->getDiaryImages() as $image)
+      {
+        $this->diaryImages[$image->number] = $image;
+      }
+    }
     $body = $this->diary->getBody();
     $body = preg_replace(array('/<op:.*?>/', '/<\/op:.*?>/'), '', $body);
     $body = preg_replace('/http.:\/\/maps\.google\.co[[:graph:]]*/', '', $body);
