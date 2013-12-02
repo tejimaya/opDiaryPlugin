@@ -204,3 +204,62 @@ div.diary-information .view{
   height: auto;
 }
 /* diary page end */
+
+/*==============================================================================
+ * Decoration by opWidgetFormRichTextareaOpenPNE(装飾タグ用のcssがコアにないため)
+ *----------------------------------------------------------------------------*/
+span.op_b {
+  text-decoration: inherit;
+  font-style: inherit;
+  font-weight: bold;
+  color: inherit;
+  font-size: inherit;
+}
+
+span.op_u {
+  text-decoration: underline;
+  font-style: inherit;
+  font-weight: inherit;
+  color: inherit;
+  font-size: inherit;
+}
+
+span.op_s {
+  text-decoration: line-through;
+  font-style: inherit;
+  font-weight: inherit;
+  color: inherit;
+  font-size: inherit;
+}
+
+span.op_i {
+  text-decoration: inherit;
+  font-style: italic;
+  font-weight: inherit;
+  color: inherit;
+  font-size: inherit;
+}
+
+span.op_large {
+  text-decoration: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  color: inherit;
+  font-size: large;
+}
+
+span.op_small {
+  text-decoration: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  color: inherit;
+  font-size: xx-small;
+}
+
+span.op_color {
+  text-decoration: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  color: inherit;
+  font-size: inherit;
+}
