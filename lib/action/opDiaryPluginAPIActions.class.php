@@ -65,36 +65,29 @@ class opDiaryPluginAPIActions extends opJsonApiActions
 
     try
     {
-      try
-      {
-        $validator = new opValidatorString(array('trim' => true, 'required' => true));
-        $form['title'] = $validator->clean($request->getParameter('title'));
-        $form['body'] =  $validator->clean($request->getParameter('body'));
-      }
-      catch (sfValidatorError $e)
-      {
-        $target = !$form['title'] ? 'title' : 'body';
-        throw new opDiaryPluginAPIException('invalid '.$target);
-      }
-      $form['public_flag'] = $request->getParameter('public_flag');
-
-      if (!$form['public_flag'] || (int)$form['public_flag'] < 1 || (int)$form['public_flag'] > 4)
-      {
-        throw new opDiaryPluginAPIException('invalid public_flag');
-      }
-
-      $form['image'] = $this->getImageFiles($request->getFiles());
-      if (count($form['image']) > sfConfig::get('app_diary_max_image_file_num', 3))
-      {
-        throw new opDiaryPluginAPIException('too many image file');
-      }
-
-      return $form;
+      $validator = new opValidatorString(array('trim' => true, 'required' => true));
+      $form['title'] = $validator->clean($request->getParameter('title'));
+      $form['body'] =  $validator->clean($request->getParameter('body'));
     }
-    catch (opDiaryPluginAPIException $e)
+    catch (sfValidatorError $e)
     {
-      throw $e;
+      $target = !$form['title'] ? 'title' : 'body';
+      throw new opDiaryPluginAPIException('invalid '.$target);
     }
+    $form['public_flag'] = $request->getParameter('public_flag');
+
+    if (!$form['public_flag'] || (int)$form['public_flag'] < 1 || (int)$form['public_flag'] > 4)
+    {
+      throw new opDiaryPluginAPIException('invalid public_flag');
+    }
+
+    $form['image'] = $this->getImageFiles($request->getFiles());
+    if (count($form['image']) > sfConfig::get('app_diary_max_image_file_num', 3))
+    {
+      throw new opDiaryPluginAPIException('too many image file');
+    }
+
+    return $form;
   }
 
   protected function getDiaryCommentFormParameter(sfWebRequest $request)
@@ -174,28 +167,21 @@ class opDiaryPluginAPIActions extends opJsonApiActions
 
   protected function getDiaryObject($memberId, $id = null)
   {
-    try
+    if($id)
     {
-      if($id)
+      if (!$diary = Doctrine::getTable('Diary')->findOneById($id))
       {
-        if (!$diary = Doctrine::getTable('Diary')->findOneById($id))
-        {
-          throw new opDiaryPluginAPIException('diary does not exist');
-        }
-        if (!$diary->isAuthor($memberId))
-        {
-          throw new opDiaryPluginAPIException('this diary is not yours.');
-        }
+        throw new opDiaryPluginAPIException('diary does not exist');
       }
-      else
+      if (!$diary->isAuthor($memberId))
       {
-        $diary = new Diary();
-        $diary->setMemberId($memberId);
+        throw new opDiaryPluginAPIException('this diary is not yours.');
       }
     }
-    catch (opDiaryPluginAPIException $e)
+    else
     {
-      throw $e;
+      $diary = new Diary();
+      $diary->setMemberId($memberId);
     }
 
     return $diary;
