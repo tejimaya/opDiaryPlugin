@@ -82,29 +82,19 @@ var diary_id = <?php echo $id ?>;
 var comment_count = 0;
 var comment_page = 1;
 
-function isInputValue (arg) {
-  if (0 >= jQuery.trim($(arg).val()).length)
-  {
-    return false;
-  }
-
-  return true;
-}
-
 $(function(){
   var params = getParams('diary_search');
   getEntry(params);
 
-  $('#deleteEntryModal .modal-button').click(function(e){
-    if(e.target.id == 'execute')
-    {
+  $('#deleteEntryModal .modal-button').click(function(e) {
+    if(e.target.id == 'execute') {
       deleteDiary( getParams('diary_delete') );
-    };
+    }
 
     $('#deleteEntryModal').modal('hide');
-  })
+  });
 
-  $(document).on('click', '#postComment',function(){
+  $(document).on('click', '#postComment',function() {
     if (!isInputValue('textarea#commentBody')) {
       $('#comment-error').html("<?php echo __('Body is required.') ?>").show();
       return -1;
@@ -112,21 +102,19 @@ $(function(){
 
     toggleSubmitState(['input[type=submit]', '.comment-form-loader']);
     postDiaryComment( getParams('diary_comment_post') );
-  })
+  });
 
-  $('#deleteCommentModal .modal-button').click(function(e){
-    if(e.target.id == 'execute')
-    {
+  $('#deleteCommentModal .modal-button').click(function(e) {
+    if(e.target.id == 'execute') {
       deleteDiaryComment( getParams('diary_comment_delete') );
     };
 
     $('#deleteCommentModal').attr('data-comment-id', '').modal('hide');
   });
 
-  $('#loadmore').click(function()
-  {
+  $('#loadmore').click(function() {
     getComments( getParams('diary_comment_search') );
-  })
+  });
 
 })
 

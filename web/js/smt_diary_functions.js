@@ -257,3 +257,11 @@ function getCreatedAt (option) {
   var date = this.data.created_at.split(' ')[0].split('-')
   return date[1] + '月' + date[2] + '日';
 }
+
+function isInputValue (arg) {
+  if (0 >= jQuery.trim($(arg).val()).length) {
+    return false;
+  }
+
+  return true;
+}
