@@ -76,7 +76,6 @@ function op_api_diary($diary)
   if($diary)
   {
     $body = preg_replace(array('/&lt;op:.*?&gt;/', '/&lt;\/op:.*?&gt;/'), '', $diary->getBody());
-    $body = preg_replace('/http.:\/\/maps\.google\.co[[:graph:]]*/', '', $body);
     $bodyShort = op_truncate($body, 60);
     $body = op_auto_link_text($body);
     //モデルクラス内でsns_termの値が取れずgetPublicFlagLabelでコケるため，緊急処置(see #3502, #3503)
