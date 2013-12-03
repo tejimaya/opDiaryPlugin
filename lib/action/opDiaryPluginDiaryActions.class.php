@@ -136,7 +136,6 @@ class opDiaryPluginDiaryActions extends opDiaryPluginActions
     {
       $this->member = $this->getUser()->getMember();
     }
-    opSmartphoneLayoutUtil::setLayoutParameters(array('member' => $this->member)); 
 
     $this->id = $request['id'];
 

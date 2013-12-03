@@ -5,5 +5,5 @@ smtListSuccess:
   layout: smtLayoutSns
 
 smtShowSuccess:
-  layout: smtLayoutMember
+  layout: smtLayoutSns
 

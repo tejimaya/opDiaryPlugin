@@ -119,6 +119,16 @@ $(function(){
 })
 
 </script>
+
+<div id="face" class="row">
+  <div class="span2">
+    <?php echo link_to(op_image_tag_sf_image($member->getImageFileName(), array('size' => '48x48')), 'member/'.$member->id) ?>
+  </div>
+  <div class="span8">
+    <div class="row face-name"><?php echo __('Diary of %1%', array('%1%' => $member->name)) ?></div>
+  </div>
+</div>
+
 <div class="row">
   <div id="show"></div>
 </div>
