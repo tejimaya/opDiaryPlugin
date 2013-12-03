@@ -24,7 +24,7 @@ class opDiaryPluginAPIActions extends opJsonApiActions
     switch ($target)
     {
       case 'list' :
-        $publicFlag = $this->getUser()->getMember()->getIsActive() ? DiaryTable::PUBLIC_FLAG_SNS : DiaryTable::PUBLIC_FLAG_OPEN;
+        $publicFlag = DiaryTable::PUBLIC_FLAG_SNS;
         $pager = $table->getDiaryPager($options['page'], $options['limit'], $publicFlag);
         break;
       case 'list_mine':
