@@ -155,7 +155,6 @@ function deleteDiary (params) {
     url: 'diary/delete',
     data: params,
     type: 'POST',
-    id: diary_id,
     success: success,
   });
 }

@@ -93,7 +93,7 @@ function op_api_diary($diary, $option = null)
       {
         $bodyShort .= '&hellip;';
       }
-      $data['body_short'] = nl2br(op_api_diary_convert_emoji($bodyShort));
+      $data['body_short'] = op_api_diary_convert_emoji($bodyShort);
     }
     else
     {
