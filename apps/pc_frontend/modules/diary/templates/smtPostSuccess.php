@@ -54,8 +54,19 @@ $(function(){
       <input type="text" name="title" id="title" class="span12" value="<?php echo $diaryTitle ?>" />
       <label class="control-label span12"><?php echo __('Body') ?></label>
       <a id="diary_body_button_op_emoji_docomo" href="#" onclick="$('#diary_body').opEmoji('togglePallet', 'epDocomo'); return false;">
-        <img alt="" src="/images/deco_op_emoji_docomo.gif" />
-      </a>
+        <img alt="" src="/images/deco_op_emoji_docomo.gif" /></a>
+      <a id="diary_body_button_op_b" href="#" onclick="op_mce_insert_tagname('diary_body', 'op:b'); return false;">
+        <img alt="" src="/images/deco_op_b.gif" /></a>
+      <a onclick="op_mce_insert_tagname('diary_body', 'op:u'); return false;" href="#" id="diary_body_button_op_u">
+        <img src="/images/deco_op_u.gif" alt=""></a>
+      <a onclick="op_mce_insert_tagname('diary_body', 'op:s'); return false;" href="#" id="diary_body_button_op_s">
+        <img src="/images/deco_op_s.gif" alt=""></a>
+      <a onclick="op_mce_insert_tagname('diary_body', 'op:i'); return false;" href="#" id="diary_body_button_op_i">
+        <img src="/images/deco_op_i.gif" alt=""></a>
+      <a onclick="op_mce_insert_tagname('diary_body', 'op:font', ' size=&quot;5&quot;'); return false;" href="#" id="diary_body_button_op_large">
+        <img src="/images/deco_op_large.gif" alt=""></a>
+      <a onclick="op_mce_insert_tagname('diary_body', 'op:font', ' size=&quot;1&quot;'); return false;" href="#" id="diary_body_button_op_small">
+        <img src="/images/deco_op_small.gif" alt=""></a>
       <textarea name="body" id="diary_body" class="span12" rows="10"><?php echo $diaryBody ?></textarea>
       <label class="control-label span12"><?php echo __('Public flag') ?></label>
       <ul class="radio_list">
