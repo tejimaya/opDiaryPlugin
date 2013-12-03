@@ -53,6 +53,7 @@ $(function(){
       <label class="control-label span12"><?php echo __('Title') ?></label>
       <input type="text" name="title" id="title" class="span12" value="<?php echo $diaryTitle ?>" />
       <label class="control-label span12"><?php echo __('Body') ?></label>
+      &nbsp;
       <a id="diary_body_button_op_emoji_docomo" href="#" onclick="$('#diary_body').opEmoji('togglePallet', 'epDocomo'); return false;">
         <img alt="" src="/images/deco_op_emoji_docomo.gif" /></a>
       <a id="diary_body_button_op_b" href="#" onclick="op_mce_insert_tagname('diary_body', 'op:b'); return false;">
