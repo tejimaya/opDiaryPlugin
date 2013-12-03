@@ -60,13 +60,15 @@ function getList (params) {
       page++;
     }
 
-    (count < json.data_count) ? $('#loadmore').show() : $('#loadmore').hide();
+    (count < json.data_count) ? loadmore.show() : loadmore.hide();
 
     loading.hide();
   }
 
   var loading = $('#loading');
+  var loadmore = $('#loadmore');
   loading.show();
+  loadmore.hide();
   $.getJSON( openpne.apiBase + 'diary/search.json', params, success );
 }
 

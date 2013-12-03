@@ -92,26 +92,24 @@ function getEntry (params) {
 
 function getComments (params) {
   var success = function (res) {
-    if (0 == res.data.comments.length)
-    {
-      $('#loadmore').hide();
+    if (0 == res.data.comments.length) {
+      loadmore.hide();
     }
-    else
-    {
+    else {
       comment_count += res.data.comments.length;
       var comments = $('#diaryComment').tmpl(res.data.comments, { getCreatedAt: getCreatedAt });
       $('#comments').append(comments);
 
-      if (res.data_count - comment_count == 0) {
-        $('#loadmore').hide();
-      }
-      else {
-        $('#loadmore').show();
-      }
+      (comment_count < res.data_count) ? loadmore.show() : loadmore.hide();
     }
-    $('#loading').hide();
+    loading.hide();
     comment_page++;
   }
+
+  var loadmore = $('#loadmore');
+  var loading = $('#loading');
+  loadmore.hide();
+  loading.show();
 
   ajax({
     url: 'diary_comment/search',
