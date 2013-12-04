@@ -4,15 +4,17 @@ op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_gadget.js', 'last');
 ?>
 <script type="text/javascript">
 $(function(){
-  var params = {
+  var f = new diaryGadget({
+    target: "<?php echo $target ?>",
+    noEntry: "<?php echo __('There are no diaries.') ?>",
+  });
+
+  f.search({
     apiKey: openpne.apiKey,
     target: "<?php echo $apiTarget ?>",
     limit: "<?php echo $max ?>",
     member_id: "<?php echo $memberId ?>" || undefined,
-  };
-
-  var f = new diaryGadget();
-  f.search(params, "<?php echo $target ?>", "<?php echo __('There are no diaries.') ?>");
+  });
 });
 </script>
 
