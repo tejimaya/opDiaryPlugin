@@ -110,13 +110,13 @@ function op_api_diary($diary, $option = null)
   }
 }
 
-function op_api_diary_image($image)
+function op_api_diary_image($image, $size = '120x120')
 {
   if($image)
   {
     return array(
       'filename' => sf_image_path($image->getFile()->getName()),
-      'imagetag' => image_tag_sf_image($image->getFile()->getName(), array('size' => '120x120'))
+      'imagetag' => image_tag_sf_image($image->getFile()->getName(), array('size' => $size))
     );
   }
 }
