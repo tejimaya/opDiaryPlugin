@@ -32,19 +32,6 @@ function getParams (target) {
 
     return fd;
   }
-  else if ('diary_list' == target) {
-    params.target = 'list';
-  }
-  else if ('diary_list_mine' == target) {
-    params.target = 'list_mine';
-  }
-  else if ('diary_list_member' == target) {
-    params.target = 'list_member';
-    params.member_id = member_id || undefined;
-  }
-  else if ('diary_list_friend' == target) {
-    params.target = 'list_friend';
-  }
   else if ('diary_delete' == target) {
     params.diary_id = diary_id;
   }

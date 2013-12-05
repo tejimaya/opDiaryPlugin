@@ -1,20 +1,19 @@
 <?php
-use_helper('opAsset');
+use_helper('opAsset', 'Javascript');
 op_smt_use_stylesheet('/opDiaryPlugin/css/smt-diary.css', 'last');
-op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_functions.js', 'last');
+op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_diary_list.js', 'last');
 
-if ('list_member' == $target || 'list_mine' == $target)
-{
-  $gadgetTitle = __('Diaries of %1%', array('%1%' => $member->getName()));
-}
-elseif ('list_friend' == $target)
-{
-  $gadgetTitle = __('Diaries of %my_friend%');
-}
-else
-{
-  $gadgetTitle = __('Recently Posted Diaries of All');
-}
+$gadgetTitle = array(
+  'list_member' => __('Diaries of %1%', array('%1%' => $member->name)),
+  'list_friend' => __('Diaries of %my_friend%'),
+  'list' => __('Recently Posted Diaries of All'),
+  'list_mine' => __('My Diaries'),
+);
+
+echo javascript_tag('
+  var target = "'.$target.'";
+  var memberId = "'.$id.'";'
+);
 ?>
 
 <script id="diaryEntry" type="text/x-jquery-tmpl">
@@ -43,48 +42,20 @@ else
 </script>
 
 <script type="text/javascript">
-var target = "<?php echo $target ?>";
-var member_id = "<?php echo $id ?>";
-var count = 0;
-var page = 1;
-
-function getList (params) {
-  var success = function (json) {
-    if (json.data.length === 0) {
-      $('#noEntry').show();
-    }
-    else {
-      var entry = $('#diaryEntry').tmpl(json.data, { getCreatedAt: getCreatedAt });
-      $('#list').append(entry);
-      count += json.data.length;
-      page++;
-    }
-
-    (count < json.data_count) ? loadmore.show() : loadmore.hide();
-
-    loading.hide();
-  }
-
-  var loading = $('#loading');
-  var loadmore = $('#loadmore');
-  loading.show();
-  loadmore.hide();
-  $.getJSON( openpne.apiBase + 'diary/search.json', params, success );
-}
-
 $(function() {
-  var params = getParams( 'diary_' + target );
-  getList(params);
+  var diaryList = new DiaryList(target, memberId);
+  diaryList.update();
 
-  $('#loadmore').click( function() {
-    params.page = page;
-    getList(params);
+  diaryList.view.loadmore.click( function() {
+    diaryList.view.loading.show();
+    diaryList.view.loadmore.hide();
+    diaryList.update();
   });
 });
 </script>
 
 <div class="row">
-  <div class="gadget_header span12"><?php echo $gadgetTitle; ?></div>
+  <div class="gadget_header span12"><?php echo $gadgetTitle[$target]; ?></div>
 </div>
 <?php if ('list_mine' == $target): ?>
 <div class="row">
@@ -103,4 +74,3 @@ $(function() {
 <div class="row">
   <button class="span12 btn small hide" id="loadmore"><?php echo __('More'); ?></button>
 </div>
-
