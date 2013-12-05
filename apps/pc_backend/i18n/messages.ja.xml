@@ -62,6 +62,22 @@
         <source>If this is used, members can select the "All Users on the Web" public flag. If not used, anonymous users can't view any diary pages.</source>
         <target>使用するに設定した場合、メンバーは「Web全体に公開」の日記を作成することができます。使用しないに設定した場合、すべての日記関連ページに非ログイン状態ではアクセスできないようになります。</target>
       </trans-unit>
+      <trans-unit id="">
+        <source>Diary api limit</source>
+        <target>日記API取得件数</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Please input the number of limit that reflects to the diary api.</source>
+        <target>日記APIの取得件数を入力してください。</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Diary comment api limit</source>
+        <target>日記コメントAPI取得件数</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Please input the number of limit that reflects to the diary comment api.</source>
+        <target>日記コメントAPIの取得件数を入力してください。</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

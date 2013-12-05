@@ -22,7 +22,7 @@ class diaryCommentActions extends opDiaryPluginAPIActions
     $this->forward400If(!$diaryId = $request->getParameter('diary_id'), 'diary_id parameter is not specified.');
 
     $this->memberId = $this->getUser()->getMemberId();
-    $options = $this->getOptions($request);
+    $options = $this->getOptions($request, 'comment');
     $pager = Doctrine::getTable('DiaryComment')->getDiaryCommentPagerForDiary($diaryId, $options['page'], $options['limit']);
     $pager->init();
 

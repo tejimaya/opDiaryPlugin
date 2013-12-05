@@ -51,12 +51,22 @@ class opDiaryPluginConfigurationForm extends BaseForm
     $this->setDefault('search_period', Doctrine::getTable('SnsConfig')->get('op_diary_plugin_search_period', '30'));
     $this->widgetSchema->setHelp('search_period', 'Please input the number of days that reflects to the diary search.');
 
+    $this->setWidget('diary_api_limit', new sfWidgetFormInput());
+    $this->setValidator('diary_api_limit', new sfValidatorInteger(array('min' => 0), array('min' => 'Please input 0 or greater.')));
+    $this->setDefault('diary_api_limit', Doctrine::getTable('SnsConfig')->get('op_diary_plugin_diary_api_limit', '15'));
+    $this->widgetSchema->setHelp('diary_api_limit', 'Please input the number of limit that reflects to the diary api.');
+
+    $this->setWidget('diary_comment_api_limit', new sfWidgetFormInput());
+    $this->setValidator('diary_comment_api_limit', new sfValidatorInteger(array('min' => 0), array('min' => 'Please input 0 or greater.')));
+    $this->setDefault('diary_comment_api_limit', Doctrine::getTable('SnsConfig')->get('op_diary_plugin_diary_comment_api_limit', '15'));
+    $this->widgetSchema->setHelp('diary_comment_api_limit', 'Please input the number of limit that reflects to the diary comment api.');
+
     $this->widgetSchema->setNameFormat('op_diary_plugin[%s]');
   }
 
   public function save()
   {
-    $names = array('use_open_diary', 'use_email_post', 'update_activity', 'search_enable', 'search_period_enable', 'search_period');
+    $names = array('use_open_diary', 'use_email_post', 'update_activity', 'search_enable', 'search_period_enable', 'search_period', 'diary_api_limit', 'diary_comment_api_limit');
 
     foreach ($names as $name)
     {

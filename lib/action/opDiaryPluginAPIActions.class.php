@@ -5,20 +5,24 @@ class opDiaryPluginAPIActions extends opJsonApiActions
   {
     parent::preExecute();
     $this->member = $this->getUser()->getMember();
+    $this->diaryLimit = Doctrine::getTable('SnsConfig')->get('op_diary_plugin_diary_api_limit', 15);
+    $this->commentLimit = Doctrine::getTable('SnsConfig')->get('op_diary_plugin_diary_comment_api_limit', 15);
   }
 
-  protected function getOptions(sfWebRequest $request)
+  protected function getOptions(sfWebRequest $request, $target)
   {
+    $limit = ('diary' == $target) ? $this->diaryLimit : $this->commentLimit;
+
     return array(
       'page' => $request->getParameter('page') ? $request['page'] : 1,
-      'limit' => $request->getParameter('limit') ? $request['limit'] : sfConfig::get('app_json_api_limit', 15),
+      'limit' => $request->getParameter('limit') ? $request['limit'] : $limit,
     );
   }
 
   protected function getTargetPager(sfWebrequest $request, Member $myMember)
   {
     $target = $request->getParameter('target');
-    $options = $this->getOptions($request);
+    $options = $this->getOptions($request, 'diary');
     $table = Doctrine::getTable('Diary');
 
     switch ($target)
