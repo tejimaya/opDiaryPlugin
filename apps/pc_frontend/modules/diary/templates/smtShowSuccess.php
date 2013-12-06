@@ -37,11 +37,11 @@ op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
     </div>
     <!-- //commentForm -->
     <div class="row" id="comment-form">
-      <div class="span1">
-      &nbsp;
-      </div>
       <div class="comment-form">
         <div id='comment-error' class="row hide"></div>
+        {{if public_flag == '<?php echo __('All Users on the Web') ?>'}}
+        <p class="font10"><?php echo __('Your comment is visible to all users on the Web.') ?></p>
+        {{/if}}
         <form class="comment-form">
           <textarea id="commentBody" name="body" placeholder="<?php echo __('Post a diary comment') ?>"></textarea>
           <input type="file" name="comment-image" />
