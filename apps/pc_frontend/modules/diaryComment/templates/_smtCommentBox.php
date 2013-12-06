@@ -18,7 +18,7 @@
         <span class="created_at">${ago}</span>
         {{if images.length > 0}}
           {{each images}}
-            <span class="span2"><a href="${$value.filename}" target="_blank" rel="lightbox[comment]">{{html $value.imagetag}}</a></span>
+            <span class="image"><a href="${$value.filename}" target="_blank" rel="lightbox[comment]">{{html $value.imagetag}}</a></span>
           {{/each}}
         {{/if}}
         {{if deletable}}

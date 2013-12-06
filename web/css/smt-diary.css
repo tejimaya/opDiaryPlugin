@@ -2,10 +2,6 @@
   margin: 10px;
 }
 
-.readmore {
-  float:right;
-}
-
 .clearfix {
   clear: both;
 }
@@ -35,7 +31,6 @@
   margin: 0;
   height: 22px;
   line-height: 22px;
-  width: 238px;
 }
 
 .file_label {
@@ -62,13 +57,11 @@
 
 /* comment */
 #comment-form{
-  width: 295px;
   margin-left: 25px;
   background-color: whiteSmoke;
 }
 
 .comments {
-  width: 295px;
   margin-left: 25px;
   margin-top: 10px;
   background-color: whiteSmoke;
@@ -76,9 +69,8 @@
 
 /* comment box */
 .comment-wrapper {
-  width: 285px;
   display: block;
-  padding: 5px;
+  padding: 5px, 5px, 0, 5px;
   border-top: 1px solid #DDD;
   position: relative;
   height: auto;
@@ -87,16 +79,21 @@
 .comment-member span.member-image {
   float: left;
   width: 23px;
+  margin: 5px;
 }
 
 .comment-member span.member-name {
   float: left;
-  margin-left: 5px;
+  margin-top: 5px;
 }
 
 .comment-content {
-  float: right;
-  width: 257px;
+  margin-left: 33px;
+  margin-bottom: 5px;
+}
+
+.comment-content img {
+  width: 60px;
 }
 
 .comment-content span.created_at {
@@ -131,12 +128,10 @@
   margin: 0;
   height: 22px;
   line-height: 22px;
-  width: 238px;
 }
 
 .comment-form-loader {
   display: none;
-  width: 285px;
   padding: 5px;
   border-top: 1px solid #DDD;
   text-align: center;
@@ -152,10 +147,6 @@
   font-size: 11px;
   line-height: 14px;
   margin: 0px;
-}
-
-.comment-button{
-  width: 140px;
 }
 
 #comment-error, .error {
