@@ -11,17 +11,21 @@ op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
   <div class="row">
     <div class="gadget_header span12 title">${title}<br />(${$item.getCreatedAt()}の日記)</div>
   </div>
+
   <div class="row public_flag">
     (${public_flag})
   </div>
+
   <div class="row images">
     {{each images}}
       <div class="span4"><a href="${$value.filename}" target="_blank" rel="lightbox[diary]">{{html $value.imagetag}}</a></div>
     {{/each}}
   </div>
+
   <div class="row body">
     <div class="span12">{{html body}}</div>
   </div>
+
   <div class="row edit">
     {{if editable}}
     <div class="btn-group span3">
@@ -30,7 +34,20 @@ op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
     </div>
     {{/if}}
   </div>
-  {{tmpl "#diarySiblings"}}
+
+  <div class="row siblings">
+    <div class="span12 center">
+      <a class="btn span5 {{if !prev}} disabled{{/if}}" {{if prev}}href="<?php echo public_path('diary/') ?>${prev}"{{/if}}>
+      <?php echo __('Previous Diary') ?></a>
+      <a class="btn span5{{if !next}} disabled{{/if}}" {{if next}}href="<?php echo public_path('diary/') ?>${next}"{{/if}}>
+      <?php echo __('Next Diary') ?></a>
+    </div>
+  </div>
+
+  {{tmpl "#commentEntry"}}
+</script>
+
+<script id="commentEntry" type="text/x-jquery-tmpl">
   <div id="comment">
     <div class="row">
       <div class="gadget_header"><?php echo __('Comment') ?></div>
@@ -59,23 +76,6 @@ op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
 </script>
 
 <?php include_partial('diaryComment/smtCommentBox', array('target' => 'diary')) ?>
-
-<script id="diarySiblings" type="text/x-jquery-tmpl">
-  <div class="row siblings">
-    <div class="span12 center">
-      {{if prev}}
-      <a href="<?php echo public_path('diary') ?>/${prev}" class="btn span5"><?php echo __('Previous Diary') ?></a>
-      {{else}}
-      <div class="disabled btn span5"><?php echo __('Previous Diary') ?></div>
-      {{/if}}
-      {{if next}}
-      <a href="<?php echo public_path('diary') ?>/${next}" class="btn span5"><?php echo __('Next Diary') ?></a>
-      {{else}}
-      <div class="disabled btn span5"><?php echo __('Next Diary') ?></div>
-      {{/if}}
-    </div>
-  </div>
-</script>
 
 <script type="text/javascript">
 var diary_id = <?php echo $id ?>;
