@@ -38,15 +38,15 @@ op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
     <!-- //commentForm -->
     <div class="row" id="comment-form">
       <div class="comment-form">
-        <div id='comment-error' class="row hide"></div>
-        {{if public_flag == '<?php echo __('All Users on the Web') ?>'}}
-        <p class="font10"><?php echo __('Your comment is visible to all users on the Web.') ?></p>
-        {{/if}}
-        <form class="comment-form">
+        <form class="comment-form" action="javascript:void(0)">
+          {{if public_flag == '<?php echo __('All Users on the Web') ?>'}}
+          <p class="font10"><?php echo __('Your comment is visible to all users on the Web.') ?></p>
+          {{/if}}
+          <div id='comment-error' class="row hide"></div>
           <textarea id="commentBody" name="body" placeholder="<?php echo __('Post a diary comment') ?>"></textarea>
           <input type="file" name="comment-image" />
+          <input type="submit" name="submit" class="btn btn-primary btn-mini comment-button" id="postComment" value="<?php echo __('Post') ?>" />
         </form>
-        <input type="submit" name="submit" class="btn btn-primary btn-mini comment-button" id="postComment" value="<?php echo __('Post') ?>" />
       </div>
       <div class="comment-form-loader hide">
         <?php echo op_image_tag('ajax-loader.gif', array()) ?>
