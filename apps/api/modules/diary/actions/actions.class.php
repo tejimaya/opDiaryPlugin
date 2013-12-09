@@ -29,6 +29,10 @@ class diaryActions extends opDiaryPluginAPIActions
       $diary->setTitle($params['title']);
       $diary->setBody($params['body']);
       $diary->setPublicFlag($params['public_flag']);
+      if ($diary->is_open && $params['public_flag'] !== 4)
+      {
+        $diary->is_open = 0;
+      }
       $diary->save($conn);
 
       $oldDiaryImages = $diary->getDiaryImages();

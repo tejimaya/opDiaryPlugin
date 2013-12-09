@@ -6,6 +6,10 @@ if ($diary)
   $diaryTitle = $diary->getTitle();
   $diaryBody  = $diary->getBody();
   $publicFlag = $diary->getPublicFlag();
+  if ($diary->is_open)
+  {
+    $publicFlag = 4;
+  }
 }
 else
 {

@@ -85,6 +85,11 @@ class opDiaryPluginAPIActions extends opJsonApiActions
       throw new opDiaryPluginAPIException('invalid public_flag');
     }
 
+    if (!Doctrine::getTable('SnsConfig')->get('op_diary_plugin_use_open_diary') && $form['public_flag'] == 4)
+    {
+      throw new opDiaryPluginAPIException('invalid public_flag');
+    }
+
     $form['image'] = $this->getImageFiles($request->getFiles());
     if (count($form['image']) > sfConfig::get('app_diary_max_image_file_num', 3))
     {

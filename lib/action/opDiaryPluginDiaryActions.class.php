@@ -231,7 +231,6 @@ class opDiaryPluginDiaryActions extends opDiaryPluginActions
   protected function smtPost(sfWebRequest $request)
   {
     $this->publicFlags = Doctrine::getTable('Diary')->getPublicFlags();
-    unset($this->publicFlags[4]);
     $this->relativeUrlRoot = $request->getRelativeUrlRoot();
     $this->setLayout('smtLayoutSns');
     $this->setTemplate('smtPost');
