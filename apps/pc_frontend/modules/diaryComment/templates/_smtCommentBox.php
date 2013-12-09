@@ -15,7 +15,7 @@
 
       <div class="comment-content">
         <span class="row comment-body">{{html body}}</span>
-        <span class="created_at">${ago}</span>
+        <span class="created_at">${$item.getCreatedAt("ago")}</span>
         {{if images.length > 0}}
           {{each images}}
             <span class="image"><a href="${$value.filename}" target="_blank" rel="lightbox[comment]">{{html $value.imagetag}}</a></span>
