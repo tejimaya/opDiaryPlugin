@@ -207,6 +207,9 @@ function getErrorMessage (arg) {
   else if (arg.match('invalid deleteCheck')) {
     mes = '画像を上書き投稿する場合は削除するにチェックを入れてください。';
   }
+  else if (arg.match('body parameter is too long')) {
+    mes = '本文が文字数制限を超えています。';
+  }
 
   return mes;
 }
