@@ -31,11 +31,6 @@ op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
 ?>
 
 <script type="text/javascript">
-function op_get_relative_uri_root()
-{
-  return "<?php echo $relativeUrlRoot;?>";
-}
-
 $(function(){
   $("#diary_body").opEmoji();
 
