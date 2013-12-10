@@ -114,6 +114,7 @@ class diaryActions extends opDiaryPluginAPIActions
 
         $this->memberId = $this->getUser()->getMemberId();
         $this->diary = Doctrine::getTable('Diary')->findOneById($diaryId);
+        $this->forward400If(!$this->diary, 'diary does not exist');
         $this->forward400If(!$this->diary->isViewable($this->getUser()->getMemberId()));
 
         $this->setTemplate('show');
