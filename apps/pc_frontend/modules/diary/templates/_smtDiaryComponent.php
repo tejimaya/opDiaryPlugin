@@ -21,7 +21,10 @@ $(function(){
 <script id="<?php echo $target ?>Entry" type="text/x-jquery-tmpl">
 <div class="row">
   <div class="span3">${$item.getCreatedAt()}</div>
-  <div class="span9"><a href="<?php echo public_path('diary') ?>/${id}">${title}</a>(<a href="${member.profile_url}">${member.name}</a>)
+  <div class="span9"><a href="<?php echo public_path('diary') ?>/${id}">${title}</a>
+  <?php if ('list' == $apiTarget || 'list_friend' == $apiTarget): ?>
+  (<a href="${member.profile_url}">${member.name}</a>)
+  <?php endif; ?>
   </div>
 </div>
 </script>
