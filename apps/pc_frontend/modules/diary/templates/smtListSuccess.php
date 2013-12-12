@@ -2,6 +2,7 @@
 use_helper('opAsset', 'Javascript');
 op_smt_use_stylesheet('/opDiaryPlugin/css/smt-diary.css', 'last');
 op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_diary_list.js', 'last');
+op_smt_use_javascript('/opDiaryPlugin/js/prototype.js', 'last');
 
 $gadgetTitle = array(
   'list_member' => __('Diaries of %1%', array('%1%' => $member->name)),
@@ -39,19 +40,6 @@ echo javascript_tag('
   <div class="clearfix"></div>
 </div>
 
-</script>
-
-<script type="text/javascript">
-$(function() {
-  var diaryList = new DiaryList(target, memberId);
-  diaryList.update();
-
-  diaryList.view.loadmore.click( function() {
-    diaryList.view.loading.show();
-    diaryList.view.loadmore.hide();
-    diaryList.update();
-  });
-});
 </script>
 
 <div class="row">
