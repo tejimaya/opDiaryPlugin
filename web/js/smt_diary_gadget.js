@@ -1,65 +1,30 @@
-function diaryGadget (args) {
-  this.init(args);
-  this.loading.toggle();
-};
+function DiaryGadget (target, apiTarget, max, memberId, noEntry) {
+  var _template = {
+    targetDiv: '#' + target,
+    targetEntry: '#' + target + 'Entry',
+    readmore: '#' + target + 'Readmore',
+  };
 
-diaryGadget.prototype = {
-  init: function (args) {
-    this.targetDiv = $("#"+args.target);
-    this.loading = this.targetDiv.children(0);
-    this.targetEntry = $('#'+args.target+'Entry');
-    this.readmore = $('#'+args.target+'Readmore');
-    this.noEntry = args.noEntry || '';
-
-    this.responseData = null;
-    this.state = '';
-    this.err = {};
-  },
-
-  success: function (res) {
-    this.responseData = res.data;
-    this.state = res.status;
-  },
-
-  error: function (res) {
-    var er = res.responseText.split(': ');
-    this.state = 'error';
-    this.err = {code: er[0], message: er[1]};
-  },
-
-  complete: function () {
-    if ('success' == this.state) {
-      this.render(this.responseData);
-      this.loading.toggle();
+  var _render = function(model) {
+    var _view = this
+    if (model.data.length > 0) {
+      var entry = _view.targetEntry.tmpl(model.data, { getCreatedAt: _view.getCreatedAt });
+      _view.readmore.show();
     }
-    else {
-      this.loading.html('エラーが発生しました。再度読みなおしてください。');
-    }
-  },
+    _view.targetDiv.append(entry ? entry : _view.noEntry);
+    _view.loading.hide();
+  };
 
-  search: function (params) {
-    $.ajax({
-      url: openpne.apiBase + 'diary/search.json',
-      type: 'GET',
-      data: params,
-      context: this,
-      success: this.success,
-      error: this.error || function (res) { console.log(res); },
-      complete: this.complete,
-    });
-  },
+  var _apiParameter = {
+    target: apiTarget,
+    limit: max,
+    member_id: memberId || undefined,
+  };
 
-  render: function (data) {
-    if (data.length > 0) {
-      var entry = this.targetEntry.tmpl(data, { getCreatedAt: this.getCreatedAt });
-      this.readmore.show();
-    }
-    this.targetDiv.append(entry ? entry : this.noEntry);
-  },
-
-  getCreatedAt: function () {
-    var date = this.data.created_at.split(' ')[0].split('-')
-    return date[1] + '月' + date[2] + '日';
-  },
-
-};
+  this.set(_apiParameter, 'diary/search', _template, _render);
+  this.view.loading = this.view.targetDiv.children(0);
+  this.noEntry = noEntry;
+}
+DiaryGadget.prototype = Prototype;
+delete(DiaryGadget.prototype.post);
+delete(DiaryGadget.prototype.delete);
