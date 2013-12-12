@@ -7,7 +7,6 @@ op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_gadget.js', 'last');
 $(function(){
   var f = new DiaryGadget(
     "<?php echo $target ?>",
-    "<?php echo $apiTarget ?>",
     "<?php echo $max ?>",
     "<?php echo $memberId ?>",
     "<?php echo __('There are no diaries.') ?>"
@@ -17,11 +16,11 @@ $(function(){
 });
 </script>
 
-<script id="<?php echo $target ?>Entry" type="text/x-jquery-tmpl">
+<script id="diary_<?php echo $target ?>_entry" type="text/x-jquery-tmpl">
 <div class="row">
   <div class="span3">${$item.getCreatedAt()}</div>
   <div class="span9"><a href="<?php echo public_path('diary') ?>/${id}">${title}</a>
-  <?php if ('list' == $apiTarget || 'list_friend' == $apiTarget): ?>
+  <?php if ('list' == $target || 'list_friend' == $target): ?>
   (<a href="${member.profile_url}">${member.name}</a>)
   <?php endif; ?>
   </div>
@@ -33,18 +32,18 @@ $(function(){
   <div class="gadget_header span12"><?php echo $title ?></div>
 </div>
 <hr class="toumei" />
-<div id="<?php echo $target ?>">
+<div id="diary_<?php echo $target ?>">
   <div class="loading center hide">
     <?php echo op_image_tag('ajax-loader.gif');?>
   </div>
 </div>
 
-<?php if ('list_mine' === $apiTarget): ?>
+<?php if ('list_mine' === $target): ?>
 <div class="row">
 <?php echo link_to(__('Post a diary'), '@diary_new', array('style' => 'float:right')) ?>
 </div>
 <?php endif; ?>
 
-<div class="row hide" id="<?php echo $target ?>Readmore">
+<div class="row hide" id="diary_<?php echo $target ?>_readmore">
 <?php echo link_to(__('More'), $link, array('class' => 'btn btn-block span11')) ?>
 </div>

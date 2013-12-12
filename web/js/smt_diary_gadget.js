@@ -1,8 +1,8 @@
-function DiaryGadget (target, apiTarget, max, memberId, noEntry) {
+function DiaryGadget (target, max, memberId, noEntry) {
   var _template = {
-    targetDiv: '#' + target,
-    targetEntry: '#' + target + 'Entry',
-    readmore: '#' + target + 'Readmore',
+    targetDiv: '#diary_' + target,
+    targetEntry: '#diary_' + target + '_entry',
+    readmore: '#diary_' + target + '_readmore',
   };
 
   var _render = function(model) {
@@ -16,7 +16,7 @@ function DiaryGadget (target, apiTarget, max, memberId, noEntry) {
   };
 
   var _apiParameter = {
-    target: apiTarget,
+    target: target,
     limit: max,
     member_id: memberId || undefined,
   };

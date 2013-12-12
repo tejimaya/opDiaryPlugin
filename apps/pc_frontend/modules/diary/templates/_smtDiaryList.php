@@ -1,7 +1,6 @@
 <?php
 $options = array(
-  'target' => 'diaryList',
-  'apiTarget' => 'list',
+  'target' => 'list',
   'max' => $max,
   'title' => __('Recently Posted Diaries of All'),
   'link' => '@diary_list',
