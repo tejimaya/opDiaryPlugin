@@ -37,7 +37,7 @@ class diaryCommentActions extends opDiaryPluginAPIActions
 
     try
     {
-      $params = $this->getDiaryCommentFormParameter($request);
+      $params = $this->getDiaryCommentFormParameter($request, $this->getUser()->getMemberId());
 
       $diaryComment = new DiaryComment();
       $diaryComment->setMemberId($this->member->getId());

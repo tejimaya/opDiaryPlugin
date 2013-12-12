@@ -99,7 +99,7 @@ class opDiaryPluginAPIActions extends opJsonApiActions
     return $form;
   }
 
-  protected function getDiaryCommentFormParameter(sfWebRequest $request)
+  protected function getDiaryCommentFormParameter(sfWebRequest $request, $memberId)
   {
     $form = array(
       'diary_id' => null,
@@ -112,7 +112,8 @@ class opDiaryPluginAPIActions extends opJsonApiActions
     {
       throw new opDiaryPluginAPIException('diary_id parameter is not specified.');
     }
-    if (!Doctrine::getTable('Diary')->findOneById($form['diary_id']))
+    $diary = Doctrine::getTable('Diary')->findOneById($form['diary_id']);
+    if (!$diary || !$diary->isViewable($memberId))
     {
       throw new opDiaryPluginAPIException('invalid diary_id');
     }
