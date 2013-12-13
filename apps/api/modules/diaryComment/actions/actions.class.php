@@ -20,6 +20,9 @@ class diaryCommentActions extends opDiaryPluginAPIActions
   public function executeSearch(sfWebRequest $request)
   {
     $this->forward400If(!$diaryId = $request->getParameter('diary_id'), 'diary_id parameter is not specified.');
+    $diary = Doctrine::getTable('Diary')->findOneById($diaryId);
+    $this->forward400If(!$diary, 'diary does not exist');
+    $this->forward403If($this->isAccessBlockFromMember($diary->getMemberId()));
 
     $this->memberId = $this->getUser()->getMemberId();
     $options = $this->getOptions($request, 'comment');

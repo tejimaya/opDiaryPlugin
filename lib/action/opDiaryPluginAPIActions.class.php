@@ -42,6 +42,7 @@ class opDiaryPluginAPIActions extends opJsonApiActions
         }
         else
         {
+          $this->forward403If($this->isAccessBlockFromMember($memberId));
           $pager = $table->getMemberDiaryPager($memberId, $options['page'], $options['limit'], $myMember->id);
         }
         break;
@@ -195,5 +196,12 @@ class opDiaryPluginAPIActions extends opJsonApiActions
     }
 
     return $diary;
+  }
+
+  protected function isAccessBlockFromMember($fromMemberId)
+  {
+    $relation = Doctrine::getTable('MemberRelationship')->retrieveByFromAndTo($fromMemberId, $this->getUser()->getMemberId());
+
+    return ($relation && $relation->is_access_block) ? true : false;
   }
 }

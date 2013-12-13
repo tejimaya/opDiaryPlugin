@@ -116,6 +116,7 @@ class diaryActions extends opDiaryPluginAPIActions
         $this->diary = Doctrine::getTable('Diary')->findOneById($diaryId);
         $this->forward400If(!$this->diary, 'diary does not exist');
         $this->forward400If(!$this->diary->isViewable($this->getUser()->getMemberId()));
+        $this->forward403If($this->isAccessBlockFromMember($this->diary->getMemberId()));
 
         $this->setTemplate('show');
       }
@@ -125,6 +126,10 @@ class diaryActions extends opDiaryPluginAPIActions
         $this->diaries = $pager->getResults();
         $this->count = $pager->count();
       }
+    }
+    catch (opErrorHttpException $e)
+    {
+      throw $e;
     }
     catch (Exception $e)
     {
