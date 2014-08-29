@@ -1,3 +1,13 @@
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.reply').click(function() {
+    var element = $('#diary_comment_body'); 
+    element.val(element.val() + '@' + $(this).attr('value') + "\n");
+    element.focus();
+  })
+})
+</script>
+
 <?php use_helper('opDiary') ?>
 
 <?php if ($pager->getNbResults()): ?>
@@ -40,6 +50,7 @@
 <?php if ($diary->member_id === $sf_user->getMemberId() || $comment->member_id === $sf_user->getMemberId()): ?>
  <?php echo link_to(__('Delete'), 'diary_comment_delete_confirm', $comment) ?>
 <?php endif; ?>
+<a class="reply" href="javascript:void(0);" value="<?php echo $comment->Member->name ?>"><?php echo __('Reply') ?></a>
 </p>
 </div>
 <div class="body">
