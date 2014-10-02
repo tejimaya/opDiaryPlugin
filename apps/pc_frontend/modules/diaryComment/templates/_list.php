@@ -50,7 +50,9 @@ $(document).ready(function() {
 <?php if ($diary->member_id === $sf_user->getMemberId() || $comment->member_id === $sf_user->getMemberId()): ?>
  <?php echo link_to(__('Delete'), 'diary_comment_delete_confirm', $comment) ?>
 <?php endif; ?>
-<?php if('1'== Doctrine::getTable('SnsConfig')->get('op_diary_plugin_diary_comment_reply')): ?><a class="reply" href="javascript:void(0);" name="<?php echo $comment->Member->name; ?>" number="<?php echo $comment->number; ?>"><?php echo __('Reply') ?></a><?php endif; ?>
+<?php if('1'== Doctrine::getTable('SnsConfig')->get('op_diary_plugin_diary_comment_reply')): ?>
+  <a class="reply" href="javascript:void(0);" name="<?php echo $comment->Member->name; ?>" number="<?php echo $comment->number; ?>"><?php echo __('Reply') ?></a>
+<?php endif; ?>
 </p>
 </div>
 <div class="body">

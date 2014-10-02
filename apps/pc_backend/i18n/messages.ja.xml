@@ -79,10 +79,6 @@
         <target>日記コメントAPIの取得件数を入力してください。</target>
       </trans-unit>
       <trans-unit id="">
-        <source>Please input the number of limit that reflects to the diary comment api.</source>
-        <target>日記コメントAPIの取得件数を入力してください。</target>
-      </trans-unit>
-      <trans-unit id="">
         <source>Diary comment reply</source>
         <target>日記コメント返信機能設定</target>
       </trans-unit>
