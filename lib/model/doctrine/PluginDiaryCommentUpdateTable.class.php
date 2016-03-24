@@ -59,9 +59,19 @@ class PluginDiaryCommentUpdateTable extends Doctrine_Table
 
   protected function getQuery(Member $member)
   {
-    return $this->createQuery()
-      ->select('diary_id, last_comment_time')
-      ->where('member_id = ?', $member->id)
+    $query = $this->createQuery('u')
+      ->select('u.*, d.*')
+      ->innerJoin('u.Diary d')
+      ->where('u.member_id = ?', $member->id)
       ->orderBy('last_comment_time DESC');
+
+    // Check public_flag
+    $query
+      ->leftJoin('d.Member m')
+      ->leftJoin('m.MemberRelationship mr WITH mr.member_id_from = ?', $member->id)
+      ->andWhere('(d.public_flag = ? OR d.public_flag = ? OR (d.public_flag = ? AND mr.is_friend = true))',
+        array(DiaryTable::PUBLIC_FLAG_OPEN, DiaryTable::PUBLIC_FLAG_SNS, DiaryTable::PUBLIC_FLAG_FRIEND));
+
+    return $query;
   }
 }
