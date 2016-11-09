@@ -21,7 +21,7 @@
   <active>yes</active>
  </lead>
  <lead>
-  <name>amashige</name>
+  <name>tenjuu99</name>
   <user>amashige</user>
   <email />
   <active>yes</active>
@@ -44,11 +44,11 @@
   <email />
   <active>yes</active>
  </contributor>
- <date>2014-06-26</date>
- <time>19:11:58</time>
+ <date>2016-11-09</date>
+ <time>17:47:11</time>
  <version>
-  <release>1.5.1</release>
-  <api>1.5.1</api>
+  <release>1.5.1.1</release>
+  <api>1.5.1.1</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -56,7 +56,7 @@
  </stability>
  <license>apache</license>
  <notes>
-alpha release.
+version 1.5.1.1 for OPSA-2016-002
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -217,7 +217,7 @@ alpha release.
    <file baseinstalldir="/" md5sum="0fae0452fc726396aa2975c6da7d3f72" name="lib/model/doctrine/PluginDiaryCommentUnread.class.php" role="data" />
    <file baseinstalldir="/" md5sum="6740cccce4a27c587728ba6c453dc339" name="lib/model/doctrine/PluginDiaryCommentUnreadTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="89ce962e43fefbfa4c45c9fec555ef5d" name="lib/model/doctrine/PluginDiaryCommentUpdate.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="cb59c8c11a3be18bf9133dbe497e1b7a" name="lib/model/doctrine/PluginDiaryCommentUpdateTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="d1424af912d3c493e75edc1a52549e7a" name="lib/model/doctrine/PluginDiaryCommentUpdateTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="ee15f9b3b6aa76cb4d2e6e28582928d1" name="lib/model/doctrine/PluginDiaryImage.class.php" role="data" />
    <file baseinstalldir="/" md5sum="29dce984ee3fba417943cd826a14ac5e" name="lib/model/doctrine/PluginDiaryImageTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="23a93b599a246341dd0f5e8eab01b249" name="lib/model/doctrine/PluginDiaryTable.class.php" role="data" />
@@ -266,7 +266,7 @@ alpha release.
    <file baseinstalldir="/" md5sum="57e497c89caeb1e6ea24d55165faa23c" name="test/unit/model/DiaryCommentImageTest.php" role="data" />
    <file baseinstalldir="/" md5sum="5577635b7fef5bb744996e8d8876d5cc" name="test/unit/model/DiaryCommentTest.php" role="data" />
    <file baseinstalldir="/" md5sum="87086bbdacb350fc971721647979353a" name="test/unit/model/DiaryCommentUnreadTableTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="f2f313998da4d50177f77afdeb2d1a7f" name="test/unit/model/DiaryCommentUpdateTableTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="a304e0c4b31f208348effbc8211c1b16" name="test/unit/model/DiaryCommentUpdateTableTest.php" role="data" />
    <file baseinstalldir="/" md5sum="fb3e9ff083961b64d2951b31fb4a0c8c" name="test/unit/model/DiaryImageTest.php" role="data" />
    <file baseinstalldir="/" md5sum="12e52601f94b181a2140acb393fd8324" name="test/unit/model/DiaryTest.php" role="data" />
    <file baseinstalldir="/" md5sum="5bbb06bb2f34a27654d2c5dda995d5d4" name="web/css/backend.css" role="data" />
@@ -690,6 +690,21 @@ alpha release.
    <license>apache</license>
    <notes>
 alpha release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.1.1</release>
+    <api>1.5.1.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2016-11-09</date>
+   <license>apache</license>
+   <notes>
+version 1.5.1.1 for OPSA-2016-002
    </notes>
   </release>
  </changelog>
