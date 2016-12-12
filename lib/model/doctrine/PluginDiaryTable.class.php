@@ -204,12 +204,12 @@ abstract class PluginDiaryTable extends Doctrine_Table
     if ($day)
     {
       $begin = sprintf('%4d-%02d-%02d 00:00:00', $year, $month, $day);
-      $end   = sprintf('%4d-%02d-%02d 00:00:00', $year, $month, $day+1);
+      $end = date('Y-m-d 00:00:00', strtotime($year.'-'.$month.'-'.$day.' +1 day'));
     }
     else
     {
       $begin = sprintf('%4d-%02d-01 00:00:00', $year, $month);
-      $end   = sprintf('%4d-%02d-01 00:00:00', $year, $month+1);
+      $end = date('Y-m-d 00:00:00', strtotime($year.'-'.$month.'-01 +1 month'));
     }
 
     $q->andWhere('created_at >= ?', $begin);
