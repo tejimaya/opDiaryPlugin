@@ -25,6 +25,16 @@ function getParams (target) {
     var form = $('form');
     var fd = new FormData(form[0]);
 
+    for (var index = 1; index <= 3; index++)
+    {
+      var photo = $('#diary_photo_' + index).val();
+      if (photo == null || photo == '') {
+        if (typeof fd.delete != "undefined"){
+          fd.delete('diary_photo_' + index);
+        }
+      }
+    }
+
     for (i in json)
     {
       fd.append(i, json[i]);
@@ -43,10 +53,17 @@ function getParams (target) {
     params.diary_id = diary_id;
     params.body = $('textarea#commentBody').val();
     var image = $('input[name=comment-image]').val();
-    params['comment-iamge'] = image ? image : undefined;
+    params['comment-image'] = image ? image : undefined;
 
     var form = $('form.comment-form').get()[0];
     var fd = new FormData(form);
+
+    if (image == null || image == '') {
+      if (typeof fd.delete != "undefined"){
+        fd.delete('comment-image');
+        delete params['comment-image'];
+      }
+    }
 
     for (i in params)
     {
