@@ -44,11 +44,11 @@
   <email />
   <active>yes</active>
  </contributor>
- <date>2016-11-09</date>
- <time>17:47:11</time>
+ <date>2018-05-23</date>
+ <time>16:56:04</time>
  <version>
-  <release>1.5.1.1</release>
-  <api>1.5.1.1</api>
+  <release>1.5.2</release>
+  <api>1.5.2</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -56,7 +56,7 @@
  </stability>
  <license>apache</license>
  <notes>
-version 1.5.1.1 for OPSA-2016-002
+version 1.5.2 alpha release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -280,7 +280,7 @@ version 1.5.1.1 for OPSA-2016-002
    <file baseinstalldir="/" md5sum="963e954252a2fe2f6ffd0b2eccedb269" name="web/js/lightbox.js" role="data" />
    <file baseinstalldir="/" md5sum="b01589d207d144731830cd9043656cbb" name="web/js/prototype.js" role="data" />
    <file baseinstalldir="/" md5sum="64c6f3399cf5232d235b7db39c9005bd" name="web/js/smt_diary_diary_list.js" role="data" />
-   <file baseinstalldir="/" md5sum="5bd5fcc3d6cef034ea5878de41bdc886" name="web/js/smt_diary_functions.js" role="data" />
+   <file baseinstalldir="/" md5sum="d91e10613c0cf2e8fd953dbacce0ea6d" name="web/js/smt_diary_functions.js" role="data" />
    <file baseinstalldir="/" md5sum="211439c7761a3c863cc205300c0499e3" name="web/js/smt_diary_gadget.js" role="data" />
    <file baseinstalldir="/" md5sum="d216258536a83fac4264ff58f9f60639" name="dependencies.yml" role="data" />
    <file baseinstalldir="/" md5sum="3b83ef96387f14655fc854ddc3c6bd57" name="LICENSE" role="data" />
@@ -705,6 +705,21 @@ alpha release.
    <license>apache</license>
    <notes>
 version 1.5.1.1 for OPSA-2016-002
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.2</release>
+    <api>1.5.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2018-05-23</date>
+   <license>apache</license>
+   <notes>
+version 1.5.2 alpha release.
    </notes>
   </release>
  </changelog>
