@@ -12,3 +12,6 @@ listMember:
 
 show:
   is_secure: false
+
+smtShow:
+  is_secure: false
