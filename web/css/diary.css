@@ -119,3 +119,7 @@
 #diarySearchFormLine p.form {
   text-align: right;
 }
+
+.title .heading .reply {
+  float: right;
+}

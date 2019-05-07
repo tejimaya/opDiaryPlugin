@@ -61,12 +61,17 @@ class opDiaryPluginConfigurationForm extends BaseForm
     $this->setDefault('diary_comment_api_limit', Doctrine::getTable('SnsConfig')->get('op_diary_plugin_diary_comment_api_limit', '15'));
     $this->widgetSchema->setHelp('diary_comment_api_limit', 'Please input the number of limit that reflects to the diary comment api.');
 
+    $this->setWidget('diary_comment_reply', new sfWidgetFormSelectRadio(array('choices' => $choices)));
+    $this->setValidator('diary_comment_reply', new sfValidatorChoice(array('choices' => array_keys($choices))));
+    $this->setDefault('diary_comment_reply', Doctrine::getTable('SnsConfig')->get('op_diary_plugin_diary_comment_reply', '0'));
+    $this->widgetSchema->setHelp('diary_comment_reply', 'If this is used, you can reply to the diary comment.');
+    
     $this->widgetSchema->setNameFormat('op_diary_plugin[%s]');
   }
 
   public function save()
   {
-    $names = array('use_open_diary', 'use_email_post', 'update_activity', 'search_enable', 'search_period_enable', 'search_period', 'diary_api_limit', 'diary_comment_api_limit');
+    $names = array('use_open_diary', 'use_email_post', 'update_activity', 'search_enable', 'search_period_enable', 'search_period', 'diary_api_limit', 'diary_comment_api_limit', 'diary_comment_reply');
 
     foreach ($names as $name)
     {
