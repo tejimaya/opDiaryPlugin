@@ -28,6 +28,8 @@ op_smt_use_javascript('decoration.js', 'last');
 op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_functions.js', 'last');
 op_smt_use_stylesheet('/opDiaryPlugin/css/lightbox.css', 'last');
 op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
+
+$RelativeUrlRoot = $sf_request->getRelativeUrlRoot() ? $sf_request->getRelativeUrlRoot() : '';
 ?>
 
 <script type="text/javascript">
@@ -40,6 +42,8 @@ $(function(){
     postDiary( getParams('diary_post') );
   });
 })
+
+function op_get_relative_uri_root() { return "<?php echo $RelativeUrlRoot; ?>"; }
 </script>
 
 <div class="row">
