@@ -44,11 +44,11 @@
   <email />
   <active>yes</active>
  </contributor>
- <date>2018-05-23</date>
- <time>16:56:04</time>
+ <date>2020-09-01</date>
+ <time>09:23:44</time>
  <version>
-  <release>1.5.2</release>
-  <api>1.5.2</api>
+  <release>1.5.3</release>
+  <api>1.5.3</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -56,7 +56,7 @@
  </stability>
  <license>apache</license>
  <notes>
-version 1.5.2 alpha release.
+version 1.5.3 (alpha) release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -133,7 +133,7 @@ version 1.5.2 alpha release.
    <file baseinstalldir="/" md5sum="a5e548d3ff8807b5ea3459b26879644c" name="apps/pc_frontend/modules/diary/templates/newSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="d7655e8974e137bbaa508448d3cce67f" name="apps/pc_frontend/modules/diary/templates/showSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="e108908288c8dc9fd8d5044b557414b0" name="apps/pc_frontend/modules/diary/templates/smtListSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="078ec84dd2f0e08078f12a45b2dbf814" name="apps/pc_frontend/modules/diary/templates/smtPostSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="7949ccb186d8faae1149b3afe9a4801b" name="apps/pc_frontend/modules/diary/templates/smtPostSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="34f61ce37a62eb3474e846b0dba8dc83" name="apps/pc_frontend/modules/diary/templates/smtShowSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="edee856bbf8c4fafec721562e960cb2b" name="apps/pc_frontend/modules/diary/templates/_cautionUnreadDiaryComment.php" role="data" />
    <file baseinstalldir="/" md5sum="32857468f71792f8ac1c4fcfb4b93303" name="apps/pc_frontend/modules/diary/templates/_diaryList.php" role="data" />
@@ -220,7 +220,7 @@ version 1.5.2 alpha release.
    <file baseinstalldir="/" md5sum="d1424af912d3c493e75edc1a52549e7a" name="lib/model/doctrine/PluginDiaryCommentUpdateTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="ee15f9b3b6aa76cb4d2e6e28582928d1" name="lib/model/doctrine/PluginDiaryImage.class.php" role="data" />
    <file baseinstalldir="/" md5sum="29dce984ee3fba417943cd826a14ac5e" name="lib/model/doctrine/PluginDiaryImageTable.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="23a93b599a246341dd0f5e8eab01b249" name="lib/model/doctrine/PluginDiaryTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4d6d2da0dcadcd1988c93797bef663a8" name="lib/model/doctrine/PluginDiaryTable.class.php" role="data" />
    <file baseinstalldir="/" md5sum="9270ed1b9a2b79b98b41ad945ef68753" name="lib/routing/opDiaryPluginBackendRouteCollection.class.php" role="data" />
    <file baseinstalldir="/" md5sum="e65d8482c9fa26f5b93065b863c5f083" name="lib/routing/opDiaryPluginBaseRouteCollection.class.php" role="data" />
    <file baseinstalldir="/" md5sum="a3e934bf7cf2a1f8653b6fef84f33b41" name="lib/routing/opDiaryPluginFrontendRouteCollection.class.php" role="data" />
@@ -720,6 +720,21 @@ version 1.5.1.1 for OPSA-2016-002
    <license>apache</license>
    <notes>
 version 1.5.2 alpha release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.3</release>
+    <api>1.5.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2020-09-01</date>
+   <license>apache</license>
+   <notes>
+version 1.5.3 (alpha) release.
    </notes>
   </release>
  </changelog>
