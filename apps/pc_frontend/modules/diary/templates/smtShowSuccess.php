@@ -6,7 +6,6 @@ op_smt_use_javascript('/opDiaryPlugin/js/smt_diary_functions.js', 'last');
 op_smt_use_stylesheet('/opDiaryPlugin/css/lightbox.css', 'last');
 op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
 ?>
-
 <script id="diaryEntry" type="text/x-jquery-tmpl">
   <div class="row">
     <div class="gadget_header span12 title">${title}<br />(${$item.getCreatedAt()}の日記)</div>
@@ -53,10 +52,11 @@ op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
       <div class="gadget_header"><?php echo __('Comment') ?></div>
     </div>
     <!-- //commentForm -->
+    <?php if (opToolkit::isSecurePage()): ?>
     <div class="row" id="comment-form">
       <div class="comment-form">
         <form class="comment-form" action="javascript:void(0)">
-          {{if public_flag == '<?php echo __('All Users on the Web') ?>'}}
+          {{if public_flag == '<?php echo __('All Users on the Web', array(), 'publicFlags') ?>'}}
           <p class="font10"><?php echo __('Your comment is visible to all users on the Web.') ?></p>
           {{/if}}
           <div id='comment-error' class="row hide"></div>
@@ -69,6 +69,7 @@ op_smt_use_javascript('/opDiaryPlugin/js/lightbox.js', 'last');
         <?php echo op_image_tag('ajax-loader.gif', array()) ?>
       </div>
     </div>
+    <?php endif; ?>
     <!-- //commentForm end -->
     <div class="row comments" id="comments">
     </div>
