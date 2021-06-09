@@ -60,7 +60,7 @@ function op_get_relative_uri_root() { return "<?php echo $RelativeUrlRoot; ?>"; 
       <?php echo label_for(__('Body'), 'diary_body') ?>
       <?php op_smt_diary_render(op_smt_diary_get_textarea_buttons()) ?>
       <textarea name="body" id="diary_body" class="span12" rows="10"><?php echo $diaryBody ?></textarea>
-      <?php echo label_for(__('Public flag')) ?>
+      <?php echo label_for(__('Public flag'), '') ?>
       <ul class="radio_list">
         <?php op_smt_diary_render(op_smt_diary_get_public_flag_list($publicFlags, $publicFlag)) ?>
       </ul>
