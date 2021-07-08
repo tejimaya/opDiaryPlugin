@@ -44,6 +44,7 @@ abstract class PluginDiaryComment extends BaseDiaryComment
       if(false == array_key_exists($comment->getMemberId(), $toMembers)
         && $comment->getMemberId() !== $this->Diary->member_id
         && $comment->getMemberId() !== $this->member_id
+        && !is_null($comment->getMemberId())
       )
       {
         $toMembers[$comment->getMemberId()] = $comment->getMember();
